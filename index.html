@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Scrum for Beginners — The Living Architecture of Agile</title>
+<meta name="description" content="A surrealist microlearning experience where e-learning meets Antoni Gaudí. Follow Alex as he transforms his team from chaos to cathedral.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   GAUDÍ DESIGN SYSTEM — "The Living Architecture of Agile"
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --terracotta:#8B3A2A;
+  --saffron:#E8A030;
+  --cobalt:#1B4F8A;
+  --serpent:#3D7A4A;
+  --bone:#F5EDD6;
+  --shadow:#1A1208;
+  --gold:#D4AF37;
+  --gold-bright:#FFD700;
+  --crack-red:#FF5A28;
+  --display:'Playfair Display',Georgia,'Times New Roman',serif;
+  --body:'Lora',Georgia,serif;
+  --mono:'DM Mono','Courier New',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#040201;font-family:var(--body);overflow:hidden}
+body{display:flex;align-items:stretch;justify-content:center}
+/* Stage */
+#stage{position:relative;width:100%;max-width:1100px;height:100vh;min-height:680px;background:#040201;overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.6)}
+#bg{position:absolute;inset:0;transition:background 1.4s cubic-bezier(.4,0,.2,1);z-index:0}
+#bg::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(245,237,214,.012) 0,rgba(245,237,214,.012) 1px,transparent 1px,transparent 46px),repeating-linear-gradient(90deg,rgba(245,237,214,.012) 0,rgba(245,237,214,.012) 1px,transparent 1px,transparent 46px);pointer-events:none}
+#tiles{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.mt{position:absolute;will-change:transform,opacity}
+#archSvg{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+
+/* Top bar */
+#topbar{position:absolute;top:0;left:0;right:0;height:50px;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:linear-gradient(to bottom,rgba(4,2,1,.78) 0%,transparent 100%);pointer-events:none}
+#chap{font-size:12px;color:rgba(212,175,55,.88);letter-spacing:.2em;font-family:var(--mono);text-transform:uppercase;pointer-events:auto;font-weight:500}
+#progress{display:flex;gap:6px;pointer-events:auto;align-items:center}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(245,237,214,.22);transition:all .35s ease;cursor:pointer}
+.dot.active{background:var(--gold);width:20px;border-radius:3.5px}
+.dot.visited{background:rgba(212,175,55,.55)}
+.dot:hover{transform:scale(1.4)}
+.dot.active:hover{transform:scale(1.1)}
+#counter{font-size:12px;color:rgba(212,175,55,.75);letter-spacing:.14em;font-family:var(--mono);pointer-events:auto;font-weight:500}
+
+/* Screens */
+.screen{position:absolute;inset:0;z-index:10;display:none;flex-direction:column;align-items:center;padding:64px 56px 92px;text-align:center;overflow-y:auto;overflow-x:hidden}
+.screen.on{display:flex}
+.screen::-webkit-scrollbar{width:6px}
+.screen::-webkit-scrollbar-track{background:transparent}
+.screen::-webkit-scrollbar-thumb{background:rgba(212,175,55,.2);border-radius:3px}
+
+/* Common decorative ornament */
+.orn{display:flex;align-items:center;gap:7px;margin-bottom:14px;width:90px;flex-shrink:0}
+.orn em{flex:1;height:1px;background:rgba(212,175,55,.34);font-style:normal}
+.orn b{width:7px;height:7px;border-radius:50%;background:rgba(212,175,55,.62);flex-shrink:0}
+
+/* Eyebrow + space label */
+.eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:rgba(212,175,55,.95);margin-bottom:7px;font-family:var(--mono);flex-shrink:0;font-weight:500}
+.space-label{font-size:15px;color:rgba(195,170,128,.95);margin-bottom:20px;font-style:italic;letter-spacing:.04em;font-family:var(--body);flex-shrink:0}
+
+/* Titles */
+h1.title{font-family:var(--display);font-size:34px;font-weight:400;color:var(--bone);line-height:1.18;margin-bottom:14px;max-width:560px;font-style:italic;flex-shrink:0}
+h1.title.sm{font-size:28px}
+h1.title.xs{font-size:24px}
+p.subtitle{font-size:14.5px;color:rgba(245,237,214,.72);max-width:480px;line-height:1.7;margin-bottom:18px;font-family:var(--body);flex-shrink:0}
+p.subtitle.sm{font-size:13.5px}
+
+/* Quote / Alex says box */
+.alex-said{position:relative;background:rgba(20,40,68,.6);border:1px solid rgba(212,175,55,.42);padding:16px 24px 16px 48px;margin:4px 0 18px;max-width:520px;font-size:16.5px;font-style:italic;color:var(--bone);line-height:1.55;font-family:var(--body);text-align:left;border-radius:2px;flex-shrink:0}
+.alex-said::before{content:'\201C';position:absolute;left:14px;top:6px;font-size:38px;color:var(--gold);font-family:Georgia,serif;line-height:1}
+.alex-said .who{font-size:13px;letter-spacing:.18em;font-style:normal;color:var(--gold);font-family:var(--mono);display:block;margin-bottom:6px;text-transform:uppercase;font-weight:500}
+.alex-said .hl{color:var(--gold);font-weight:normal}
+
+/* Definition box */
+.def-box{display:flex;align-items:flex-start;gap:12px;padding:13px 20px;background:rgba(20,12,8,.55);border:1px solid rgba(212,175,55,.32);border-left:3px solid var(--gold);font-size:14px;color:rgba(245,237,214,.88);font-family:var(--body);margin-bottom:18px;max-width:480px;line-height:1.55;text-align:left;flex-shrink:0;border-radius:1px}
+.def-box b{color:var(--gold);font-family:var(--mono);letter-spacing:.16em;font-size:13px;text-transform:uppercase;font-weight:500;flex-shrink:0;padding-top:1px}
+
+/* Buttons */
+.cbtn{background:none;border:1px solid rgba(212,175,55,.55);color:var(--bone);padding:14px 32px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-family:var(--mono);cursor:pointer;transition:all .35s;clip-path:polygon(4% 0%,100% 0%,96% 100%,0% 100%);font-weight:500;margin-top:8px;flex-shrink:0;display:inline-flex;align-items:center;gap:14px}
+.cbtn:hover{background:rgba(212,175,55,.12);border-color:var(--gold);letter-spacing:.26em}
+.cbtn .em{font-size:18px;color:var(--gold);transition:transform .5s}
+.cbtn:hover .em{transform:rotate(45deg)}
+.cbtn .em-r{color:var(--gold);font-size:16px}
+
+/* Quiz */
+.quiz{width:100%;max-width:560px;flex-shrink:0}
+.quiz.locked{opacity:0;transform:translateY(8px);pointer-events:none}
+.quiz.on{opacity:1;transform:translateY(0);pointer-events:auto;transition:all .7s}
+.qq{font-size:14.5px;color:var(--bone);margin-bottom:12px;font-family:var(--body);line-height:1.55;text-align:left}
+.qq b{color:var(--gold);letter-spacing:.16em;font-size:12px;text-transform:uppercase;font-family:var(--mono);font-weight:500;display:block;margin-bottom:7px}
+.qo{display:flex;gap:9px;flex-direction:column}
+.qb{background:rgba(20,12,8,.62);border:1px solid rgba(212,175,55,.28);color:rgba(245,237,214,.88);padding:13px 18px;font-size:14px;text-align:left;font-family:var(--body);cursor:pointer;transition:all .3s;border-radius:1px;line-height:1.45}
+.qb:hover:not(.dis){border-color:rgba(212,175,55,.62);background:rgba(40,25,15,.72);color:var(--bone)}
+.qb.dis{pointer-events:none;opacity:.5}
+.qb .ql{font-family:var(--mono);color:var(--gold);margin-right:11px;font-weight:500;letter-spacing:.05em}
+.qb.cor{border-color:var(--gold);background:rgba(212,175,55,.18);color:var(--bone);opacity:1}
+.qb.cor .ql{color:var(--gold-bright)}
+.qb.wro{border-color:rgba(160,80,60,.6);background:rgba(80,30,20,.32);opacity:.75}
+.qf{margin-top:12px;font-size:13px;color:rgba(245,237,214,.85);font-style:italic;line-height:1.6;padding:11px 16px;background:rgba(20,12,8,.5);border-left:2px solid var(--gold);display:none;font-family:var(--body);text-align:left;border-radius:1px}
+.qf.on{display:block}
+.qf b{color:var(--gold);font-style:normal;font-family:var(--mono);text-transform:uppercase;font-size:12px;letter-spacing:.16em;display:block;margin-bottom:5px;font-weight:500}
+
+/* Recap box (Sprint quiz) */
+.recap{background:radial-gradient(ellipse at 50% 0%,rgba(232,160,48,.18) 0%,rgba(15,30,52,.55) 100%);border:1px solid rgba(212,175,55,.34);padding:14px 22px 13px;margin-bottom:18px;max-width:480px;font-family:var(--body);font-size:13.5px;color:rgba(245,237,214,.88);line-height:1.55;text-align:left;flex-shrink:0;border-radius:2px}
+.recap b{color:var(--gold);font-family:var(--mono);letter-spacing:.18em;font-size:12px;text-transform:uppercase;font-weight:500;display:block;margin-bottom:6px}
+.recap em{color:var(--gold-bright);font-style:italic}
+
+/* Title screen specifics */
+.title-screen{justify-content:center}
+.meta-line{margin-top:28px;font-size:12px;color:rgba(212,175,55,.82);letter-spacing:.15em;font-family:var(--mono);flex-shrink:0;font-weight:500}
+.meta-line i{margin:0 14px;color:rgba(212,175,55,.42);font-style:normal}
+
+/* Bottom nav */
+#nav{position:absolute;bottom:0;left:0;right:0;z-index:25;display:flex;align-items:center;justify-content:space-between;padding:14px 22px 18px;background:linear-gradient(to top,rgba(4,2,1,.96) 0%,rgba(4,2,1,.55) 70%,transparent 100%)}
+.nb{background:none;border:1px solid rgba(212,175,55,.4);color:var(--gold);width:44px;height:44px;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:all .25s;font-family:Georgia,serif;flex-shrink:0;border-radius:1px}
+.nb:hover:not([disabled]){background:rgba(212,175,55,.12);border-color:rgba(212,175,55,.72);box-shadow:0 0 18px rgba(212,175,55,.22)}
+.nb[disabled]{opacity:.14;cursor:default}
+.nb-next{background:rgba(212,175,55,.1)}
+#nav-mid{font-size:11.5px;color:rgba(212,175,55,.85);letter-spacing:.18em;text-transform:uppercase;font-family:var(--mono);text-align:center;flex:1;padding:0 14px;font-weight:500}
+#nav-mid span{color:var(--bone);margin:0 11px;opacity:.85}
+
+/* Overlay transition */
+#overlay{position:absolute;inset:0;z-index:50;background:#040201;pointer-events:none;opacity:1;transition:opacity .7s ease}
+
+/* ═══════════ SCREEN 1 — TITLE ═══════════ */
+
+/* ═══════════ SCREEN 2 — CHAOS / cards ═══════════ */
+.chaos-overlay{position:relative;z-index:11;background:radial-gradient(ellipse 92% 78% at 50% 50%,rgba(15,8,4,.82) 0%,rgba(15,8,4,.5) 60%,transparent 100%);padding:34px 56px;border-radius:50%;max-width:480px}
+.cc{position:absolute;background:rgba(50,32,28,.78);border:1px solid rgba(139,58,42,.55);padding:9px 15px;font-size:11.5px;color:rgba(245,237,214,.78);font-family:var(--mono);letter-spacing:.04em;cursor:pointer;transition:background .25s,border-color .25s,color .25s,box-shadow .25s;user-select:none;border-radius:1px;will-change:transform;z-index:8}
+.cc::before{content:'';position:absolute;top:-3px;left:50%;width:8px;height:8px;background:#5C2A1C;border:1px solid rgba(212,175,55,.32);border-radius:50%;transform:translateX(-50%)}
+.cc:hover{background:rgba(139,58,42,.6);border-color:rgba(212,175,55,.78);color:var(--bone);z-index:9;box-shadow:0 0 26px rgba(212,175,55,.32);animation-play-state:paused}
+.cc.caught{animation:catch 1.1s forwards ease-out !important;z-index:15}
+@keyframes catch{0%{transform:scale(1) rotate(var(--cr,0deg))}25%{transform:scale(1.3) rotate(0deg);background:rgba(212,175,55,.4);border-color:var(--gold);box-shadow:0 0 42px rgba(212,175,55,.72);color:var(--shadow)}60%{transform:scale(1.8) rotate(0deg);opacity:.85}100%{transform:scale(3) rotate(0deg);opacity:0}}
+.chaos-instr{margin-top:24px;font-size:13px;color:var(--gold);letter-spacing:.18em;font-family:var(--mono);animation:chaos-pulse 2.4s infinite;font-weight:500}
+@keyframes chaos-pulse{0%,100%{opacity:.55}50%{opacity:1}}
+.chaos-instr span{display:inline-block;margin-right:6px;animation:bob 2s infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* ═══════════ SCREEN 3 — TURNING POINT ═══════════ */
+.tp-stage{position:relative;width:100%;max-width:600px;display:flex;gap:26px;margin-bottom:18px;min-height:240px;flex-shrink:0}
+.tp-left{flex:1;text-align:left}
+.tp-quote{font-size:15px;color:rgba(245,237,214,.82);font-style:italic;line-height:1.6;border-left:2px solid rgba(212,175,55,.5);padding:7px 0 7px 15px;margin:14px 0;font-family:var(--body)}
+.tp-quote::before{content:'\201C';color:var(--gold);font-size:24px;line-height:0;margin-right:2px}
+.tp-board{width:240px;background:rgba(15,30,52,.42);border:1px solid rgba(212,175,55,.28);padding:18px 14px 14px;font-family:var(--mono);position:relative;clip-path:polygon(2% 0%,100% 1%,99% 99%,1% 100%)}
+.tp-board::before{content:'BACKLOG';position:absolute;top:-9px;left:14px;background:#0F1A28;padding:0 9px;font-size:11px;color:var(--gold);letter-spacing:.18em;font-weight:500}
+/* New centered layout for Screen 3 */
+.tp-quote-center{font-size:16px;color:#F5EDD6;font-style:italic;line-height:1.6;border-left:2px solid rgba(212,175,55,.65);padding:9px 18px;margin:6px auto 20px;font-family:var(--body);text-align:left;max-width:520px;background:rgba(15,30,52,.35);position:relative;flex-shrink:0}
+.tp-quote-center::before{content:'\201C';color:var(--gold);font-size:26px;line-height:0;margin-right:3px}
+.tp-board-wide{width:100%;max-width:580px;background:rgba(15,30,52,.55);border:1.5px solid rgba(212,175,55,.45);padding:30px 24px 20px;font-family:var(--mono);position:relative;clip-path:polygon(2% 0%,100% 1%,99% 99%,1% 100%);margin:24px 0 22px;flex-shrink:0;text-align:left}
+.tp-board-wide::before{content:'\2756  BACKLOG  \2756';position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:13px;color:var(--gold);letter-spacing:.24em;font-weight:500;font-family:var(--mono);background:transparent;padding:0}
+.tp-board-wide::after{content:'';position:absolute;top:26px;left:24px;right:24px;height:1px;background:linear-gradient(to right,transparent 0%,rgba(212,175,55,.4) 50%,transparent 100%)}
+.tp-board-wide .bl{font-size:14px;color:rgba(245,237,214,.9);padding:9px 0 9px 24px;border-bottom:1px dashed rgba(212,175,55,.22);position:relative;opacity:0;animation:bl-in .55s forwards;font-family:var(--body);font-style:italic;margin-top:0}
+.tp-board-wide .bl:first-of-type{margin-top:14px}
+.tp-board-wide .bl::before{content:'';position:absolute;left:0;top:14px;width:11px;height:11px;background:rgba(212,175,55,.55);border:1px solid var(--gold);transform:rotate(45deg)}
+.tp-board-wide .bl:last-child{border-bottom:none}
+.bl{font-size:11.5px;color:rgba(245,237,214,.78);padding:5px 0 5px 18px;border-bottom:1px dashed rgba(212,175,55,.18);position:relative;opacity:0;animation:bl-in .55s forwards}
+.bl::before{content:'';position:absolute;left:0;top:11px;width:8px;height:8px;background:rgba(212,175,55,.42);border:1px solid rgba(212,175,55,.6);transform:rotate(45deg)}
+.bl:last-child{border-bottom:none}
+@keyframes bl-in{from{opacity:0;transform:translateX(15px)}to{opacity:1;transform:translateX(0)}}
+
+/* ═══════════ SCREEN 4 — FOUR PILLARS ═══════════ */
+.four-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;width:100%;max-width:600px;margin:8px 0 14px;min-height:190px;flex-shrink:0}
+.col-pillar{position:relative;display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:16px 10px 13px;background:linear-gradient(to bottom,rgba(232,160,48,.08) 0%,rgba(27,79,138,.14) 100%);border:1px solid rgba(212,175,55,.2);transition:all .4s;text-align:center;clip-path:polygon(0% 8%,50% 0%,100% 8%,100% 100%,0% 100%)}
+.col-pillar:hover,.col-pillar.active{background:linear-gradient(to bottom,rgba(232,160,48,.2) 0%,rgba(27,79,138,.26) 100%);border-color:var(--gold);transform:translateY(-4px)}
+.col-i{font-size:24px;color:var(--gold);margin-bottom:9px;font-family:Georgia,serif}
+.col-n{font-size:11.5px;color:var(--bone);font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+.col-s{font-size:12.5px;color:rgba(212,175,55,.82);font-style:italic;letter-spacing:.03em;font-family:var(--body)}
+.col-def{width:100%;max-width:600px;min-height:70px;padding:15px 20px;background:rgba(15,8,4,.6);border:1px solid rgba(212,175,55,.24);font-size:13.5px;color:rgba(245,237,214,.82);line-height:1.6;font-family:var(--body);text-align:left;opacity:.6;transition:opacity .35s;border-radius:1px;flex-shrink:0}
+.col-def b{color:var(--gold);font-family:var(--mono);text-transform:uppercase;font-size:12px;letter-spacing:.18em;margin-right:10px;font-weight:500}
+.col-def.on{opacity:1;border-color:rgba(212,175,55,.42)}
+
+/* ═══════════ SCREEN 5 — SPRINT INTRO ═══════════ */
+.sprint-arch-vis{width:100%;max-width:400px;height:auto;margin:6px 0 10px;flex-shrink:0}
+
+/* ═══════════ SCREEN 7 — SPRINT 1 ═══════════ */
+.sgoal{position:relative;width:100%;max-width:450px;padding:24px 30px 20px;margin:6px 0 14px;text-align:center;border:1px solid rgba(212,175,55,.26);background:radial-gradient(ellipse at 50% 0%,rgba(232,160,48,.18) 0%,rgba(15,30,52,.42) 60%,transparent 100%);clip-path:polygon(8% 0%,92% 0%,100% 18%,100% 100%,0% 100%,0% 18%);flex-shrink:0}
+.sgoal-l{font-size:11.5px;color:var(--gold);letter-spacing:.28em;font-family:var(--mono);margin-bottom:8px;font-weight:500}
+.sgoal-t{font-size:15px;color:var(--bone);font-style:italic;line-height:1.4;font-family:var(--body)}
+.stask-row{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:560px;margin:0 0 16px;flex-shrink:0}
+.stask{background:rgba(15,30,52,.55);border:1px solid rgba(212,175,55,.3);padding:7px 12px;font-size:11px;color:rgba(245,237,214,.82);font-family:var(--mono);letter-spacing:.03em;border-radius:1px;position:relative}
+.tquotes{display:flex;gap:18px;margin-bottom:16px;max-width:560px;font-size:14.5px;color:rgba(245,237,214,.88);font-style:italic;font-family:var(--body);line-height:1.55;flex-shrink:0}
+.tquotes .tq{flex:1;padding-left:14px;border-left:2px solid rgba(212,175,55,.6);text-align:left}
+.tquotes .tq b{font-style:normal;color:var(--gold);display:block;font-size:12px;letter-spacing:.18em;font-family:var(--mono);margin-bottom:6px;font-weight:500}
+
+/* ═══════════ SCREEN 8 — DAILY SCRUM ═══════════ */
+.pillars-row{display:flex;gap:26px;justify-content:center;margin:8px 0 18px;flex-shrink:0}
+.pillar{display:flex;flex-direction:column;align-items:center;width:120px;position:relative}
+.pcap{width:104px;height:15px;background:rgba(212,175,55,.34);border-radius:52px/100% 100% 0 0;position:relative}
+.pcap::after{content:'';position:absolute;left:8px;right:8px;top:3px;height:1px;background:rgba(255,255,255,.22)}
+.psh{width:70px;height:116px;background:linear-gradient(to bottom,rgba(232,160,48,.22) 0%,rgba(27,79,138,.16) 50%,rgba(232,160,48,.22) 100%);border-left:1px solid rgba(212,175,55,.38);border-right:1px solid rgba(212,175,55,.38);display:flex;align-items:center;justify-content:center;padding:0 8px;text-align:center;font-size:11.5px;color:var(--bone);font-style:italic;line-height:1.4;font-family:var(--body);position:relative}
+.psh::before{content:'';position:absolute;inset:4px;border:1px dashed rgba(212,175,55,.14)}
+.pbase{width:108px;height:15px;background:rgba(212,175,55,.34);border-radius:54px/0 0 100% 100%;position:relative}
+.pbase::after{content:'';position:absolute;left:8px;right:8px;bottom:3px;height:1px;background:rgba(255,255,255,.2)}
+.pillar.lit .psh{background:linear-gradient(to bottom,rgba(232,160,48,.4) 0%,rgba(212,175,55,.24) 50%,rgba(232,160,48,.35) 100%);box-shadow:0 0 28px rgba(212,175,55,.28)}
+.pq-num{position:absolute;top:-26px;font-size:11.5px;color:var(--gold);letter-spacing:.18em;font-family:var(--mono);font-weight:500}
+.reasons-label{font-size:13px;letter-spacing:.18em;color:rgba(212,175,55,.92);font-family:var(--mono);text-transform:uppercase;margin-bottom:12px;flex-shrink:0;font-weight:500}
+.reasons-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:500px;margin-bottom:14px;flex-shrink:0}
+.reason{background:rgba(15,8,4,.58);border:1px solid rgba(212,175,55,.22);padding:10px 14px;font-size:13px;color:rgba(245,237,214,.82);font-family:var(--body);text-align:left;display:flex;align-items:center;gap:10px;line-height:1.4;opacity:0;transform:translateY(6px);transition:all .55s}
+.reason.on{opacity:1;transform:translateY(0);border-color:rgba(212,175,55,.42);box-shadow:0 0 14px rgba(212,175,55,.08)}
+.reason::before{content:'';width:6px;height:6px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
+.hook{margin-top:8px;font-size:13.5px;color:rgba(245,237,214,.72);font-style:italic;font-family:var(--body);padding:14px 24px 4px;border-top:1px solid rgba(212,175,55,.24);max-width:400px;text-align:center;opacity:0;transition:opacity .8s;flex-shrink:0}
+.hook.on{opacity:1}
+.hook em{color:var(--gold);font-style:italic}
+/* ═══════════ SCREEN 9 — EL PATI DE LES ROLS (drag & drop) ═══════════ */
+.s9-instr{font-size:13px;color:var(--gold);letter-spacing:.18em;font-family:var(--mono);text-transform:uppercase;margin:8px 0 16px;animation:chaos-pulse 2.4s infinite;flex-shrink:0;font-weight:500}
+.chars-row{display:flex;gap:22px;justify-content:center;width:100%;max-width:640px;margin-bottom:24px;min-height:200px;position:relative;flex-shrink:0}
+.char{width:160px;background:radial-gradient(ellipse at 50% 30%,rgba(212,175,55,.22) 0%,rgba(15,30,52,.55) 70%);border:1px solid rgba(212,175,55,.44);padding:8px 8px 12px;text-align:center;cursor:grab;user-select:none;touch-action:none;border-radius:3px;position:relative;transition:transform .3s cubic-bezier(.4,1.4,.6,1),border-color .25s,box-shadow .25s,opacity .35s;z-index:5}
+.char:hover{border-color:rgba(212,175,55,.78);box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.char.dragging{cursor:grabbing;transition:none;z-index:30;border-color:var(--gold);box-shadow:0 8px 32px rgba(212,175,55,.42),0 0 0 1px var(--gold)}
+.char.placed{opacity:0;pointer-events:none;transform:scale(.5) !important}
+.char-svg{width:130px;height:160px;display:block;margin:0 auto 4px;pointer-events:none}
+.cic{font-size:32px;color:var(--gold);line-height:1;margin-bottom:7px;font-family:Georgia,serif}
+.cnm{font-size:16px;color:var(--bone);font-family:var(--body);font-style:italic;margin-bottom:5px}
+.chnt{font-size:12px;color:rgba(212,175,55,.85);font-family:var(--mono);letter-spacing:.04em}
+.roles-row{display:flex;gap:16px;justify-content:center;width:100%;max-width:600px;min-height:160px;flex-shrink:0;margin-bottom:10px}
+.role{flex:1;background:rgba(15,30,52,.42);border:1.5px dashed rgba(212,175,55,.34);padding:20px 12px 16px;text-align:center;transition:all .3s;border-radius:3px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:155px}
+.role.hover{border-color:var(--gold);border-style:solid;background:rgba(212,175,55,.16);transform:scale(1.03)}
+.role.correct{border-style:solid;border-color:var(--gold);background:radial-gradient(ellipse at 50% 30%,rgba(212,175,55,.26) 0%,rgba(61,122,74,.22) 100%);box-shadow:0 0 24px rgba(212,175,55,.24)}
+.role.wrong{animation:shake .5s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.role-ic{font-size:24px;color:rgba(212,175,55,.55);margin-bottom:8px;font-family:Georgia,serif}
+.role.correct .role-ic{color:var(--gold)}
+.role-nm{font-size:11.5px;color:var(--bone);font-family:var(--mono);letter-spacing:.18em;margin-bottom:7px;font-weight:500}
+.role-d{font-size:12px;color:rgba(245,237,214,.65);font-style:italic;font-family:var(--body);line-height:1.45;max-width:155px}
+.role.correct .role-d{color:rgba(245,237,214,.92)}
+.role-placed{font-size:11px;color:var(--gold);font-family:var(--mono);letter-spacing:.14em;margin-top:8px;text-transform:uppercase;opacity:0;animation:fadein .55s .2s forwards}
+@keyframes fadein{to{opacity:1}}
+.mosaic-done{font-size:12px;color:rgba(212,175,55,.88);font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;opacity:0;transition:opacity .6s;text-align:center;min-height:18px;flex-shrink:0;padding-top:8px}
+.mosaic-done.on{opacity:1}
+.mosaic-done span{color:var(--gold-bright)}
+
+/* ═══════════ SCREEN 10 — CRISIS ═══════════ */
+.crisis-svg{width:100%;max-width:420px;height:auto;margin:6px 0 12px;flex-shrink:0}
+.story-l{background:rgba(20,12,8,.62);border-left:3px solid rgba(160,80,60,.7);padding:14px 20px;margin-bottom:16px;max-width:540px;text-align:left;font-size:14px;color:rgba(245,237,214,.82);line-height:1.55;font-family:var(--body);flex-shrink:0;border-radius:1px}
+.story-l p{margin-bottom:7px}
+.story-l strong{color:#FF8C5C;font-weight:normal;font-style:italic}
+.story-l .qq-quote{font-size:15px;color:rgba(245,237,214,.88);font-style:italic;margin-top:11px;padding-left:14px;border-left:2px solid rgba(212,175,55,.55)}
+.story-l .qq-quote b{color:var(--gold);font-style:normal;font-family:var(--mono);font-size:12px;letter-spacing:.18em;display:block;margin-bottom:6px;font-weight:500}
+.story-l.heal{border-color:rgba(212,175,55,.55)}
+.story-l.heal strong{color:var(--gold-bright)}
+
+/* ═══════════ SCREEN 11 — KINTSUGI ═══════════ */
+.heal-svg{width:100%;max-width:420px;height:auto;margin:6px 0 10px;flex-shrink:0}
+.challenges-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:540px;margin:10px 0 16px;flex-shrink:0}
+.chl{background:rgba(15,8,4,.6);border:1px solid rgba(212,175,55,.24);padding:11px 15px;font-size:13px;color:rgba(245,237,214,.82);font-family:var(--body);text-align:left;display:flex;align-items:center;gap:10px;line-height:1.4;opacity:0;transform:translateY(6px);transition:all .55s}
+.chl.on{opacity:1;transform:translateY(0);border-color:rgba(212,175,55,.44)}
+.chl::before{content:'';width:6px;height:6px;background:var(--gold);flex-shrink:0;transform:rotate(45deg)}
+.principle{padding:14px 22px;background:radial-gradient(ellipse at 50% 50%,rgba(212,175,55,.22) 0%,rgba(15,8,4,.55) 100%);border:1px solid rgba(212,175,55,.44);font-size:15px;color:var(--bone);font-family:var(--body);font-style:italic;text-align:center;line-height:1.5;max-width:500px;margin-bottom:14px;flex-shrink:0;border-radius:1px}
+.principle b{color:var(--gold);font-family:var(--mono);letter-spacing:.18em;font-size:12px;text-transform:uppercase;font-style:normal;font-weight:500;display:block;margin-bottom:7px}
+
+/* ═══════════ SCREEN 12 — DEFINITION OF DONE ═══════════ */
+.dod-stage{width:100%;max-width:560px;margin:8px 0 12px;flex-shrink:0}
+.dod-mosaic{width:100%;height:54px;margin-bottom:14px}
+.dod-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.dod-btn{background:rgba(20,12,8,.62);border:1px solid rgba(212,175,55,.3);color:rgba(245,237,214,.85);padding:12px 14px 12px 40px;font-size:13.5px;text-align:left;font-family:var(--body);cursor:pointer;transition:all .35s;border-radius:1px;position:relative;line-height:1.4}
+.dod-btn::before{content:'';position:absolute;left:14px;top:50%;transform:translateY(-50%);width:14px;height:14px;border:1px solid rgba(212,175,55,.48);border-radius:1px}
+.dod-btn:hover:not(.cf){border-color:rgba(212,175,55,.62);background:rgba(40,25,15,.72);color:var(--bone)}
+.dod-btn.cf{background:rgba(212,175,55,.18);border-color:var(--gold);color:var(--bone);pointer-events:none}
+.dod-btn.cf::before{background:var(--gold);border-color:var(--gold)}
+.dod-btn.cf::after{content:'\2713';position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--shadow);font-size:12px;font-weight:bold;font-family:Georgia,serif}
+.dod-status{font-size:13px;color:rgba(212,175,55,.92);letter-spacing:.18em;font-family:var(--mono);text-transform:uppercase;text-align:center;margin-bottom:12px;transition:all .4s;font-weight:500}
+.dod-status.done{color:var(--gold-bright);letter-spacing:.24em}
+
+/* ═══════════ SCREEN 13 — MIRADOR ═══════════ */
+.roof-svg{width:100%;max-width:600px;height:auto;margin:0 0 16px;flex-shrink:0}
+.team-quotes{display:flex;flex-direction:column;gap:9px;max-width:500px;margin-bottom:14px;width:100%;flex-shrink:0}
+.tquote{padding:13px 20px 13px 17px;font-size:16px;color:#F5EDD6;font-style:italic;font-family:var(--body);line-height:1.55;border-left:3px solid rgba(212,175,55,.6);background:rgba(15,8,4,.5);text-align:left;border-radius:1px;opacity:0;transform:translateX(-8px);transition:all .6s}
+.tquote.on{opacity:1;transform:translateX(0)}
+.tquote b{color:var(--gold);font-style:normal;font-family:var(--mono);font-size:13px;letter-spacing:.18em;display:block;margin-bottom:6px;font-weight:500}
+.tquote.toast{border-color:var(--gold-bright);background:radial-gradient(ellipse at 0% 50%,rgba(212,175,55,.2) 0%,rgba(15,8,4,.45) 70%)}
+.tquote.toast b{color:var(--gold-bright)}
+.refl-label{font-size:11px;letter-spacing:.24em;color:rgba(212,175,55,.72);font-family:var(--mono);text-transform:uppercase;margin:8px 0 13px;flex-shrink:0;opacity:0;transition:opacity .6s}
+.refl-label.on{opacity:1}
+.stars-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;width:100%;max-width:540px;margin-bottom:10px;flex-shrink:0}
+.star-q{background:rgba(15,8,4,.58);border:1px solid rgba(212,175,55,.28);padding:13px 16px 13px 42px;font-size:13.5px;color:rgba(245,237,214,.85);font-family:var(--body);line-height:1.45;text-align:left;border-radius:1px;position:relative;opacity:0;transform:translateY(8px);transition:all .6s}
+.star-q.on{opacity:1;transform:translateY(0)}
+.star-q::before{content:'\2726';position:absolute;left:15px;top:13px;color:var(--gold);font-size:16px;line-height:1;animation:twinkle 3s infinite}
+.star-q:nth-child(2)::before{animation-delay:.5s}
+.star-q:nth-child(3)::before{animation-delay:1s}
+.star-q:nth-child(4)::before{animation-delay:1.5s}
+@keyframes twinkle{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.18)}}
+.cbtn.hidden{opacity:0;pointer-events:none;transition:opacity .6s}
+.cbtn.reveal{opacity:1;pointer-events:auto}
+
+/* ═══════════ SCREEN 14 — COMMITMENT STONE ═══════════ */
+.stone{width:100%;max-width:560px;background:radial-gradient(ellipse at 50% 40%,rgba(80,55,40,.5) 0%,rgba(38,22,12,.88) 75%);border:2px solid rgba(212,175,55,.44);padding:26px 32px 22px;border-radius:6px;position:relative;box-shadow:0 6px 32px rgba(0,0,0,.55),inset 0 0 24px rgba(0,0,0,.55);flex-shrink:0;clip-path:polygon(4% 0%,96% 0%,100% 6%,99% 96%,96% 100%,4% 100%,0% 94%,1% 4%)}
+.stone::before{content:'';position:absolute;top:8px;left:14px;right:14px;height:1px;background:rgba(212,175,55,.2)}
+.stone::after{content:'';position:absolute;bottom:8px;left:14px;right:14px;height:1px;background:rgba(212,175,55,.2)}
+.stone-tag{font-size:12px;letter-spacing:.28em;color:var(--gold);font-family:var(--mono);text-transform:uppercase;text-align:center;margin-bottom:18px;font-weight:500}
+.stone-tag span{margin:0 9px;opacity:.5}
+.fld{margin-bottom:14px;text-align:left}
+.fld-l{display:block;font-size:12px;letter-spacing:.18em;color:rgba(212,175,55,.92);font-family:var(--mono);text-transform:uppercase;margin-bottom:7px;font-weight:500}
+.fld-l span{color:rgba(212,175,55,.62);margin-left:6px;font-size:10.5px;font-weight:400}
+.fld input,.fld textarea{width:100%;background:rgba(15,8,4,.55);border:1px solid rgba(212,175,55,.3);border-bottom:1.5px solid rgba(212,175,55,.48);color:var(--bone);padding:10px 13px;font-size:14.5px;font-family:'Times New Roman',Georgia,serif;font-style:italic;outline:none;transition:all .25s;border-radius:1px}
+.fld input:focus,.fld textarea:focus{border-color:var(--gold);background:rgba(20,14,8,.7);box-shadow:0 0 14px rgba(212,175,55,.18)}
+.fld input::placeholder,.fld textarea::placeholder{color:rgba(245,237,214,.34);font-style:italic;font-size:13.5px}
+.fld textarea{resize:none;min-height:50px;line-height:1.45}
+.fld.has-val input,.fld.has-val textarea{color:var(--gold-bright);text-shadow:0 0 8px rgba(255,215,0,.25)}
+.tasks-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.stone-act{display:flex;gap:11px;margin-top:8px;align-items:center;justify-content:space-between}
+.carve-btn{flex:1;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.52);color:var(--gold);padding:12px 20px;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;font-family:var(--mono);cursor:pointer;transition:all .35s;border-radius:1px}
+.carve-btn:hover:not([disabled]){background:rgba(212,175,55,.24);color:var(--gold-bright);border-color:var(--gold-bright);box-shadow:0 0 20px rgba(212,175,55,.28)}
+.carve-btn[disabled]{opacity:.32;cursor:default}
+.stone-status{font-size:12px;letter-spacing:.18em;color:rgba(212,175,55,.78);font-family:var(--mono);text-transform:uppercase;text-align:right;min-width:80px;flex-shrink:0;font-weight:500}
+.stone-status.full{color:var(--gold-bright)}
+/* Carved state */
+.stone.carved{background:radial-gradient(ellipse at 50% 40%,rgba(115,82,55,.7) 0%,rgba(52,32,18,.95) 75%);border-color:var(--gold);box-shadow:0 6px 42px rgba(212,175,55,.22),inset 0 0 32px rgba(0,0,0,.58);animation:glow-pulse 3.5s infinite}
+@keyframes glow-pulse{0%,100%{box-shadow:0 6px 24px rgba(212,175,55,.2),inset 0 0 24px rgba(0,0,0,.55)}50%{box-shadow:0 6px 40px rgba(212,175,55,.4),inset 0 0 24px rgba(0,0,0,.55)}}
+.stone.carved input,.stone.carved textarea{pointer-events:none;background:transparent;border:none;border-bottom:1px dotted rgba(212,175,55,.22);color:var(--gold-bright);text-shadow:0 0 10px rgba(255,215,0,.42),0 0 2px rgba(255,215,0,.62);padding-left:6px}
+.stone.carved .stone-act{display:none}
+.carved-msg{display:none;text-align:center;font-size:11.5px;color:var(--gold-bright);letter-spacing:.24em;font-family:var(--mono);text-transform:uppercase;margin-top:10px;text-shadow:0 0 10px rgba(255,215,0,.45)}
+.stone.carved .carved-msg{display:block}
+.final-msg{margin-top:16px;font-size:13.5px;color:rgba(245,237,214,.72);font-style:italic;font-family:var(--body);max-width:460px;text-align:center;line-height:1.6;opacity:0;transition:opacity 1.2s 1s;flex-shrink:0}
+.final-msg.on{opacity:1}
+.final-msg em{color:var(--gold-bright);font-style:italic}
+.actions-row{margin-top:14px;display:flex;gap:10px;justify-content:center;opacity:0;transition:opacity 1s 1.5s;flex-shrink:0}
+.actions-row.on{opacity:1}
+.action-btn{background:none;border:1px solid rgba(212,175,55,.5);color:rgba(245,237,214,.85);padding:10px 20px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-family:var(--mono);cursor:pointer;transition:all .3s;border-radius:1px;font-weight:500}
+.action-btn:hover{background:rgba(212,175,55,.12);color:var(--bone);border-color:rgba(212,175,55,.7)}
+
+/* ═══════════════ Tile animations ═══════════════ */
+@keyframes tm0{0%{opacity:0;transform:translate(0,0) rotate(var(--r))}15%{opacity:.55;transform:translate(5px,-4px) rotate(var(--r))}85%{opacity:.22;transform:translate(30px,-22px) rotate(calc(var(--r) + 120deg))}100%{opacity:0;transform:translate(38px,-30px) rotate(calc(var(--r) + 155deg))}}
+@keyframes tm1{0%{opacity:0;transform:translate(0,0) rotate(var(--r))}15%{opacity:.5;transform:translate(-5px,3px) rotate(var(--r))}85%{opacity:.2;transform:translate(-33px,20px) rotate(calc(var(--r) - 100deg))}100%{opacity:0;transform:translate(-42px,25px) rotate(calc(var(--r) - 128deg))}}
+@keyframes tr{0%{opacity:0;transform:translateY(28px) rotate(var(--r))}18%{opacity:.5;transform:translateY(8px) rotate(var(--r))}82%{opacity:.25;transform:translateY(-40px) rotate(var(--r))}100%{opacity:0;transform:translateY(-58px) rotate(var(--r))}}
+@keyframes tc{0%{opacity:.22;transform:scale(1) rotate(var(--r))}50%{opacity:.62;transform:scale(1.12) rotate(var(--r))}100%{opacity:.22;transform:scale(1) rotate(var(--r))}}
+@keyframes tf{0%{opacity:.25;transform:translateY(0) rotate(var(--r))}50%{opacity:.66;transform:translateY(-12px) rotate(var(--r))}100%{opacity:.25;transform:translateY(0) rotate(var(--r))}}
+
+/* Chaos drift */
+@keyframes drift1{0%,100%{transform:translate(0,0) rotate(-3deg)}50%{transform:translate(14px,-10px) rotate(2deg)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) rotate(2deg)}50%{transform:translate(-16px,12px) rotate(-3deg)}}
+@keyframes drift3{0%,100%{transform:translate(0,0) rotate(-1deg)}50%{transform:translate(10px,14px) rotate(3deg)}}
+@keyframes drift4{0%,100%{transform:translate(0,0) rotate(4deg)}50%{transform:translate(-12px,-8px) rotate(-2deg)}}
+
+/* Mobile responsive */
+@media (max-width:680px){
+  #stage{box-shadow:none}
+  .screen{padding:54px 28px 78px}
+  h1.title{font-size:26px}
+  h1.title.sm{font-size:22px}
+  h1.title.xs{font-size:20px}
+  .tp-stage{flex-direction:column;gap:18px}
+  .tp-board{width:100%}
+  .four-cols{grid-template-columns:1fr 1fr;gap:14px}
+  .chars-row{flex-wrap:wrap}
+  .char{width:calc(50% - 11px)}
+  .roles-row{flex-direction:column}
+  .reasons-grid{grid-template-columns:1fr}
+  .stars-grid{grid-template-columns:1fr}
+  .challenges-grid{grid-template-columns:1fr}
+  .dod-grid{grid-template-columns:1fr}
+  .tasks-row{grid-template-columns:1fr}
+  .tquotes{flex-direction:column}
+  .pillars-row{gap:12px}
+  .pillar{width:90px}
+  .psh{width:60px;font-size:10.5px}
+}
+@media (max-height:680px){
+  #stage{height:auto;min-height:100vh}
+  body{height:auto;overflow:auto}
+  html,body{overflow:auto}
+}
+</style>
+</head>
+<body>
+<div id="stage" role="application" aria-label="Scrum for Beginners interactive course">
+  <div id="bg"></div>
+  <div id="tiles" aria-hidden="true"></div>
+  <svg id="archSvg" viewBox="0 0 1100 760" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <title>Architectural decoration</title>
+    <desc>Gaudí-inspired decorative arches</desc>
+  </svg>
+  <div id="topbar">
+    <div id="chap" aria-live="polite"></div>
+    <div id="progress" role="navigation" aria-label="Course progress"></div>
+    <div id="counter"></div>
+  </div>
+
+  <!-- ════════════ SCREEN 1 — TITLE ════════════ -->
+  <div class="screen title-screen" id="screen-1" data-screen="1">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">A SURREALIST MICROLEARNING EXPERIENCE</div>
+    <div class="space-label">From the studios of Antoni Gaudí · A story in five spaces</div>
+    <h1 class="title">The Living Architecture<br>of Agile</h1>
+    <p class="subtitle">Follow Alex as he transforms his team — from the chaos of unfocused Monday meetings to a living cathedral of focus, rhythm, and shared craft.</p>
+    <button class="cbtn" data-next>
+      <span class="em">◈</span>
+      <span>Enter the Cathedral</span>
+      <span class="em-r">→</span>
+    </button>
+    <div class="meta-line">14 SCREENS<i>·</i>5 SPACES<i>·</i>~10 MINUTES<i>·</i>1 FIRST SPRINT</div>
+  </div>
+
+  <!-- ════════════ SCREEN 2 — CHAOS ════════════ -->
+  <div class="screen" id="screen-2" data-screen="2" style="justify-content:center">
+    <div class="chaos-overlay">
+      <div class="eyebrow">CHAPTER 1 — THE PROBLEM</div>
+      <h1 class="title sm">Monday<br>Morning</h1>
+      <p class="subtitle" style="max-width:340px;font-size:14px">Alex's team meets every Monday. Every Monday, discussions drift. New ideas. Side conversations. An hour passes. Nobody leaves knowing what to do.</p>
+      <div class="chaos-instr"><span>↓</span>Catch a drifting thought to begin</div>
+    </div>
+  </div>
+
+  <!-- ════════════ SCREEN 3 — TURNING POINT + Q1 ════════════ -->
+  <div class="screen" id="screen-3" data-screen="3">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 2 — THE TURNING POINT</div>
+    <div class="space-label">La Plaça del Caos → La Catedral del Sprint</div>
+    <h1 class="title sm" style="margin-bottom:16px;max-width:560px">What if we wrote it all down?</h1>
+    <p class="subtitle" style="margin-bottom:8px;max-width:560px">Alex does something radical. He hands the team blank cards and asks them to write every task. Then they pin them to the board. Then they choose <em style="color:var(--gold);font-style:italic">one</em> goal.</p>
+    <div class="tp-quote-center">Plan a new digital course for healthcare administration.</div>
+    <div class="tp-board-wide" id="backlogBoard"></div>
+    <div class="quiz locked" id="quiz-1">
+      <div class="qq"><b>Knowledge check · Q1</b>What is the main goal of breaking tasks into micro-tasks?</div>
+      <div class="qo">
+        <button class="qb" data-c="0"><span class="ql">A</span>To create more work for the team</button>
+        <button class="qb" data-c="1"><span class="ql">B</span>To make progress visible and manageable</button>
+        <button class="qb" data-c="2"><span class="ql">C</span>To assign tasks to more people</button>
+      </div>
+      <div class="qf" id="qf-1"></div>
+    </div>
+  </div>
+
+  <!-- ════════════ SCREEN 4 — FOUR PILLARS OF SCRUM ════════════ -->
+  <div class="screen" id="screen-4" data-screen="4">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 3 — LA CATEDRAL DEL SPRINT</div>
+    <div class="space-label">Order emerges from chaos. The four columns rise.</div>
+    <h1 class="title sm" style="margin-bottom:8px">Four pillars hold up Scrum</h1>
+    <p class="subtitle sm" style="margin-bottom:18px">Tap each column to hear what it carries.</p>
+    <div class="four-cols" id="fourCols"></div>
+    <div class="col-def" id="colDef"><b>↑ Tap a column</b>Each pillar of Scrum carries a specific weight. Touch one to feel what it holds.</div>
+  </div>
+
+  <!-- ════════════ SCREEN 5 — SPRINT INTRO ════════════ -->
+  <div class="screen" id="screen-5" data-screen="5">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 4 — INTRODUCING THE SPRINT</div>
+    <div class="space-label">La Catedral del Sprint · Alex names what is happening</div>
+    <h1 class="title sm">One Sprint. 4 weeks. One arch.</h1>
+    <p class="subtitle sm">Alex turns to the team. He picks up the single card they have just prioritized — the rest stay on the wall.</p>
+    <div class="alex-said"><span class="who">ALEX</span>For the next four weeks we work on <span class="hl">only this one thing</span>. Nothing else from the backlog. Just this goal — then we look at what we built, and start again.</div>
+    <svg class="sprint-arch-vis" viewBox="0 0 380 160" aria-hidden="true">
+      <path d="M 20 145 Q 190 -15 360 145" fill="rgba(232,160,48,.12)" stroke="rgba(212,175,55,.55)" stroke-width="1.5"/>
+      <path d="M 40 145 Q 190 0 340 145" fill="none" stroke="rgba(212,175,55,.2)" stroke-width="0.5"/>
+      <text x="190" y="48" text-anchor="middle" fill="#D4AF37" font-size="11" letter-spacing="3" font-family="DM Mono,Courier New,monospace" font-weight="500">4 WEEKS</text>
+      <line x1="155" y1="55" x2="225" y2="55" stroke="rgba(212,175,55,.42)" stroke-width="0.5"/>
+      <text x="190" y="90" text-anchor="middle" fill="#F5EDD6" font-size="14" font-style="italic" font-family="Lora,Georgia,serif">Plan a digital course</text>
+      <text x="190" y="110" text-anchor="middle" fill="#F5EDD6" font-size="14" font-style="italic" font-family="Lora,Georgia,serif">for healthcare administration</text>
+      <circle cx="190" cy="135" r="3" fill="#D4AF37"/>
+      <path d="M 145 135 L 175 135 M 205 135 L 235 135" stroke="rgba(212,175,55,.42)" stroke-width="0.5"/>
+    </svg>
+    <div class="def-box"><b>SPRINT</b><span>A short, time-boxed work cycle — typically two to four weeks. The team commits to one Sprint Goal and protects that focus until the cycle ends.</span></div>
+  </div>
+
+  <!-- ════════════ SCREEN 6 — SPRINT QUIZ ════════════ -->
+  <div class="screen" id="screen-6" data-screen="6">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 4B — KNOWLEDGE CHECK</div>
+    <div class="space-label">La Catedral del Sprint · Test your understanding</div>
+    <h1 class="title sm">The arch holds. Why?</h1>
+    <div class="recap"><b>RECAP</b>Alex committed the team to <em>one</em> Sprint Goal for the next 4 weeks. They only work on tasks from the backlog of the Sprint Goal — and nothing else. Why is this restraint so powerful?</div>
+    <div class="quiz on" id="quiz-6">
+      <div class="qq"><b>Knowledge check · Sprint focus</b>Why does Alex commit the team to just ONE Sprint Goal for the whole Sprint?</div>
+      <div class="qo">
+        <button class="qb" data-c="0"><span class="ql">A</span>To impress the boss with a clear plan on paper</button>
+        <button class="qb" data-c="1"><span class="ql">B</span>To protect focus and actually finish what was started</button>
+        <button class="qb" data-c="2"><span class="ql">C</span>To finish the project faster by skipping non-essentials</button>
+        <button class="qb" data-c="3"><span class="ql">D</span>To prove the team can handle pressure</button>
+      </div>
+      <div class="qf" id="qf-sprint"></div>
+    </div>
+  </div>
+
+  <!-- ════════════ SCREEN 7 — SPRINT 1 BEGINS + DECISION ════════════ -->
+  <div class="screen" id="screen-7" data-screen="7">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 5 — SPRINT 1 BEGINS</div>
+    <div class="space-label">La Catedral del Sprint · Light floods in from above</div>
+    <h1 class="title sm">One goal. 4 weeks. One arch.</h1>
+    <div class="sgoal"><div class="sgoal-l">SPRINT GOAL</div><div class="sgoal-t">Plan a new digital course for healthcare administration</div></div>
+    <div class="stask-row" id="sprintTasks"></div>
+    <div class="tquotes">
+      <div class="tq"><b>KAT</b>"I'll turn this into clear learning slides."</div>
+      <div class="tq"><b>TOM</b>"And I'll check what employers actually need."</div>
+    </div>
+    <div class="quiz locked" id="quiz-2">
+      <div class="qq"><b>Decision point · scenario</b>Mid-Sprint, the team starts discussing future course ideas instead of finishing the current module. What should Alex do?</div>
+      <div class="qo">
+        <button class="qb" data-c="0"><span class="ql">A</span>Let the discussion continue — it might be useful later</button>
+        <button class="qb" data-c="1"><span class="ql">B</span>Refocus the team on the current Sprint goal</button>
+        <button class="qb" data-c="2"><span class="ql">C</span>Cancel the meeting and reschedule</button>
+      </div>
+      <div class="qf" id="qf-2"></div>
+    </div>
+  </div>
+  <!-- ════════════ SCREEN 8 — DAILY SCRUM + Q2 ════════════ -->
+  <div class="screen" id="screen-8" data-screen="8">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 6 — THE DAILY SCRUM</div>
+    <div class="space-label">Ten minutes. Three questions. Everything changes.</div>
+    <h1 class="title xs">Three pillars of light</h1>
+    <p class="subtitle sm" style="margin-bottom:14px">Now the team meets <em style="color:var(--gold)">every morning</em> for a Daily Scrum. Ten minutes. Three questions. Progress becomes visible — and obstacles surface before they grow.</p>
+    <div class="pillars-row" id="dailyPillars"></div>
+    <div class="reasons-label">— Why Daily Scrum works —</div>
+    <div class="reasons-grid" id="dailyReasons"></div>
+    <div class="quiz locked" id="quiz-3">
+      <div class="qq"><b>Knowledge check · Q2</b>Why does Alex suggest a daily 10-minute meeting?</div>
+      <div class="qo">
+        <button class="qb" data-c="0"><span class="ql">A</span>To control the team and check on each member</button>
+        <button class="qb" data-c="1"><span class="ql">B</span>To replace the longer weekly meetings entirely</button>
+        <button class="qb" data-c="2"><span class="ql">C</span>To quickly track progress and remove obstacles</button>
+      </div>
+      <div class="qf" id="qf-3"></div>
+    </div>
+    <div class="hook" id="dailyHook">"What else can Scrum unlock?"</div>
+  </div>
+
+  <!-- ════════════ SCREEN 9 — EL PATI DE LES ROLS ════════════ -->
+  <div class="screen" id="screen-9" data-screen="9">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 7 — EL PATI DE LES ROLS</div>
+    <div class="space-label">The Courtyard of Roles · Three sculptures, three roles</div>
+    <h1 class="title xs" style="margin-bottom:6px">Who does what in this cathedral?</h1>
+    <p class="subtitle sm" style="font-size:13px;margin-bottom:8px">After two weeks, the team's roles emerge organically. Help Alex name them.</p>
+    <div class="s9-instr">↓ Drag each sculpture to its role ↓</div>
+    <div class="chars-row" id="charsRow">
+      <div class="char" data-ch="alex">
+        <svg class="char-svg" viewBox="0 0 140 180" aria-hidden="true">
+          <defs>
+            <radialGradient id="alexGlow9" cx="50%" cy="35%" r="55%"><stop offset="0%" stop-color="rgba(255,215,0,.4)"/><stop offset="100%" stop-color="rgba(255,215,0,0)"/></radialGradient>
+            <linearGradient id="alexBody9" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E8A030"/><stop offset="100%" stop-color="#8B3A2A"/></linearGradient>
+          </defs>
+          <circle cx="70" cy="65" r="58" fill="url(#alexGlow9)"/>
+          <path d="M 70 30 Q 50 32 45 50 Q 38 70 42 95 Q 45 120 55 140 Q 60 150 70 152 Q 80 150 85 140 Q 95 120 98 95 Q 102 70 95 50 Q 90 32 70 30 Z" fill="url(#alexBody9)" stroke="#D4AF37" stroke-width="1"/>
+          <path d="M 56 56 L 62 53 L 65 60 L 58 63 Z" fill="#3D7A4A" stroke="#D4AF37" stroke-width="0.4"/>
+          <path d="M 68 50 L 75 49 L 76 56 L 70 57 Z" fill="#1B4F8A" stroke="#D4AF37" stroke-width="0.4"/>
+          <path d="M 82 54 L 88 56 L 86 63 L 80 61 Z" fill="#6B3FA0" stroke="#D4AF37" stroke-width="0.4"/>
+          <path d="M 52 80 L 60 78 L 62 86 L 54 88 Z" fill="#3D7A4A" stroke="#D4AF37" stroke-width="0.4"/>
+          <path d="M 67 82 L 75 81 L 77 89 L 69 90 Z" fill="#D4AF37" stroke="#FFD700" stroke-width="0.4"/>
+          <path d="M 80 84 L 88 82 L 89 90 L 82 92 Z" fill="#1B4F8A" stroke="#D4AF37" stroke-width="0.4"/>
+          <path d="M 56 105 L 64 104 L 65 112 L 57 113 Z" fill="#6B3FA0" stroke="#D4AF37" stroke-width="0.4"/>
+          <path d="M 70 108 L 78 107 L 79 115 L 71 116 Z" fill="#3D7A4A" stroke="#D4AF37" stroke-width="0.4"/>
+          <ellipse cx="70" cy="38" rx="22" ry="18" fill="#8B3A2A" stroke="#D4AF37" stroke-width="1.2"/>
+          <circle cx="62" cy="36" r="2.5" fill="#FFD700"/>
+          <circle cx="78" cy="36" r="2.5" fill="#FFD700"/>
+          <circle cx="62" cy="36" r="1" fill="#1A1208"/>
+          <circle cx="78" cy="36" r="1" fill="#1A1208"/>
+          <path d="M 65 22 Q 70 16 75 22" stroke="#D4AF37" stroke-width="1.5" fill="none"/>
+          <path d="M 60 24 Q 70 14 80 24" stroke="rgba(212,175,55,.4)" stroke-width="0.8" fill="none"/>
+          <path d="M 70 152 Q 70 162 75 168 Q 85 172 90 165 Q 92 158 88 154" fill="#8B3A2A" stroke="#D4AF37" stroke-width="0.8"/>
+          <line x1="42" y1="100" x2="20" y2="80" stroke="#5C3818" stroke-width="2.5"/>
+          <ellipse cx="18" cy="76" rx="6" ry="9" fill="#FFD700"/>
+          <ellipse cx="18" cy="74" rx="3" ry="5" fill="#FFE9B0"/>
+          <line x1="18" y1="64" x2="18" y2="58" stroke="rgba(255,215,0,.6)" stroke-width="0.8"/>
+          <line x1="10" y1="72" x2="6" y2="70" stroke="rgba(255,215,0,.6)" stroke-width="0.8"/>
+          <line x1="26" y1="72" x2="30" y2="70" stroke="rgba(255,215,0,.6)" stroke-width="0.8"/>
+        </svg>
+        <div class="cnm">Alex</div>
+        <div class="chnt">"the way we work"</div>
+      </div>
+      <div class="char" data-ch="tom">
+        <svg class="char-svg" viewBox="0 0 140 180" aria-hidden="true">
+          <defs>
+            <linearGradient id="tomCol9" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1B4F8A"/><stop offset="50%" stop-color="#3D7A4A"/><stop offset="100%" stop-color="#8B3A2A"/></linearGradient>
+            <radialGradient id="tomGlow9" cx="50%" cy="20%" r="50%"><stop offset="0%" stop-color="rgba(212,175,55,.35)"/><stop offset="100%" stop-color="rgba(212,175,55,0)"/></radialGradient>
+          </defs>
+          <circle cx="70" cy="50" r="55" fill="url(#tomGlow9)"/>
+          <path d="M 40 28 L 100 28 L 102 22 L 95 18 L 88 24 L 80 16 L 70 22 L 60 16 L 52 24 L 45 18 L 38 22 Z" fill="#D4AF37" stroke="#FFD700" stroke-width="1"/>
+          <circle cx="70" cy="14" r="4" fill="#FFD700" stroke="#D4AF37"/>
+          <ellipse cx="70" cy="36" rx="34" ry="6" fill="#D4AF37" stroke="#8B3A2A" stroke-width="0.5"/>
+          <ellipse cx="70" cy="50" rx="16" ry="14" fill="#1A1208" stroke="#D4AF37" stroke-width="0.8"/>
+          <circle cx="64" cy="48" r="2" fill="#FFD700"/>
+          <circle cx="76" cy="48" r="2" fill="#FFD700"/>
+          <path d="M 60 56 Q 70 64 80 56 Q 78 62 70 64 Q 62 62 60 56 Z" fill="#D4AF37" opacity="0.7"/>
+          <path d="M 50 64 L 50 158 L 90 158 L 90 64 Z" fill="url(#tomCol9)" stroke="#D4AF37" stroke-width="1"/>
+          <line x1="58" y1="64" x2="58" y2="158" stroke="rgba(255,255,255,.15)" stroke-width="0.5"/>
+          <line x1="66" y1="64" x2="66" y2="158" stroke="rgba(255,255,255,.15)" stroke-width="0.5"/>
+          <line x1="74" y1="64" x2="74" y2="158" stroke="rgba(255,255,255,.15)" stroke-width="0.5"/>
+          <line x1="82" y1="64" x2="82" y2="158" stroke="rgba(255,255,255,.15)" stroke-width="0.5"/>
+          <rect x="50" y="90" width="40" height="10" fill="rgba(212,175,55,.3)" stroke="#D4AF37" stroke-width="0.3"/>
+          <rect x="52" y="91" width="6" height="8" fill="#E8A030"/>
+          <rect x="60" y="91" width="6" height="8" fill="#1B4F8A"/>
+          <rect x="68" y="91" width="6" height="8" fill="#3D7A4A"/>
+          <rect x="76" y="91" width="6" height="8" fill="#6B3FA0"/>
+          <rect x="84" y="91" width="4" height="8" fill="#D4AF37"/>
+          <rect x="50" y="125" width="40" height="10" fill="rgba(212,175,55,.3)" stroke="#D4AF37" stroke-width="0.3"/>
+          <rect x="52" y="126" width="6" height="8" fill="#1B4F8A"/>
+          <rect x="60" y="126" width="6" height="8" fill="#E8A030"/>
+          <rect x="68" y="126" width="6" height="8" fill="#6B3FA0"/>
+          <rect x="76" y="126" width="6" height="8" fill="#3D7A4A"/>
+          <rect x="84" y="126" width="4" height="8" fill="#D4AF37"/>
+          <ellipse cx="70" cy="160" rx="36" ry="6" fill="#D4AF37" stroke="#8B3A2A" stroke-width="0.5"/>
+          <rect x="32" y="162" width="76" height="8" fill="#8B3A2A" stroke="#D4AF37" stroke-width="0.5"/>
+          <line x1="95" y1="100" x2="110" y2="80" stroke="#D4AF37" stroke-width="2"/>
+          <circle cx="112" cy="78" r="4" fill="#FFD700" stroke="#D4AF37"/>
+        </svg>
+        <div class="cnm">Tom</div>
+        <div class="chnt">"what we build"</div>
+      </div>
+      <div class="char" data-ch="kat">
+        <svg class="char-svg" viewBox="0 0 140 180" aria-hidden="true">
+          <defs>
+            <radialGradient id="katAura9" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="rgba(232,160,48,.3)"/><stop offset="100%" stop-color="rgba(232,160,48,0)"/></radialGradient>
+            <linearGradient id="katRobe9" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6B3FA0"/><stop offset="100%" stop-color="#1B4F8A"/></linearGradient>
+          </defs>
+          <circle cx="70" cy="80" r="62" fill="url(#katAura9)"/>
+          <rect x="15" y="50" width="6" height="6" fill="#E8A030" transform="rotate(20 18 53)" opacity="0.7"/>
+          <rect x="115" y="55" width="6" height="6" fill="#3D7A4A" transform="rotate(-15 118 58)" opacity="0.7"/>
+          <rect x="12" y="95" width="6" height="6" fill="#1B4F8A" transform="rotate(45 15 98)" opacity="0.7"/>
+          <rect x="118" y="100" width="6" height="6" fill="#D4AF37" transform="rotate(-25 121 103)" opacity="0.8"/>
+          <rect x="20" y="130" width="5" height="5" fill="#6B3FA0" transform="rotate(35 22 132)" opacity="0.6"/>
+          <rect x="115" y="135" width="5" height="5" fill="#8B3A2A" transform="rotate(-40 117 137)" opacity="0.6"/>
+          <path d="M 70 60 Q 45 80 38 130 Q 42 158 70 162 Q 98 158 102 130 Q 95 80 70 60 Z" fill="url(#katRobe9)" stroke="#D4AF37" stroke-width="1"/>
+          <path d="M 55 90 L 65 88 L 67 98 L 56 100 Z" fill="#D4AF37" stroke="#FFD700" stroke-width="0.4"/>
+          <path d="M 72 92 L 82 91 L 83 102 L 73 103 Z" fill="#E8A030" stroke="#D4AF37" stroke-width="0.4"/>
+          <path d="M 50 115 L 60 114 L 62 124 L 51 125 Z" fill="#3D7A4A" stroke="#D4AF37" stroke-width="0.4"/>
+          <path d="M 67 118 L 77 116 L 79 127 L 68 128 Z" fill="#E8A030" stroke="#D4AF37" stroke-width="0.4"/>
+          <path d="M 82 122 L 92 121 L 92 131 L 83 132 Z" fill="#6B3FA0" stroke="#D4AF37" stroke-width="0.4"/>
+          <path d="M 55 138 L 65 137 L 65 147 L 56 148 Z" fill="#1B4F8A" stroke="#D4AF37" stroke-width="0.4"/>
+          <path d="M 72 141 L 82 140 L 82 150 L 73 151 Z" fill="#D4AF37" stroke="#FFD700" stroke-width="0.4"/>
+          <circle cx="70" cy="50" r="16" fill="#F5EDD6" stroke="#D4AF37" stroke-width="1"/>
+          <path d="M 56 42 Q 50 30 60 24 Q 70 18 80 24 Q 90 30 84 42 Q 88 50 84 58 L 56 58 Q 52 50 56 42 Z" fill="#8B3A2A" stroke="#D4AF37" stroke-width="0.8"/>
+          <rect x="59" y="32" width="4" height="4" fill="#D4AF37" transform="rotate(15 61 34)"/>
+          <rect x="76" y="30" width="4" height="4" fill="#E8A030" transform="rotate(-20 78 32)"/>
+          <rect x="68" y="26" width="3" height="3" fill="#1B4F8A" transform="rotate(30 69.5 27.5)"/>
+          <circle cx="64" cy="50" r="1.5" fill="#1A1208"/>
+          <circle cx="76" cy="50" r="1.5" fill="#1A1208"/>
+          <path d="M 65 56 Q 70 59 75 56" stroke="#8B3A2A" stroke-width="0.8" fill="none"/>
+          <ellipse cx="42" cy="115" rx="5" ry="7" fill="#F5EDD6" stroke="#D4AF37" stroke-width="0.5"/>
+          <ellipse cx="98" cy="115" rx="5" ry="7" fill="#F5EDD6" stroke="#D4AF37" stroke-width="0.5"/>
+          <rect x="92" y="105" width="10" height="10" fill="#FFD700" stroke="#D4AF37" stroke-width="0.8" transform="rotate(20 97 110)"/>
+          <line x1="98" y1="115" x2="105" y2="125" stroke="#D4AF37" stroke-width="0.6"/>
+        </svg>
+        <div class="cnm">Kat</div>
+        <div class="chnt">"makes it real"</div>
+      </div>
+    </div>
+    <div class="roles-row" id="rolesRow">
+      <div class="role" data-rl="sm"><div class="role-ic">◯</div><div class="role-nm">SCRUM MASTER</div><div class="role-d">Facilitates the process. Removes blockers.</div></div>
+      <div class="role" data-rl="po"><div class="role-ic">◈</div><div class="role-nm">PRODUCT OWNER</div><div class="role-d">Defines value. Sets priorities.</div></div>
+      <div class="role" data-rl="dt"><div class="role-ic">▣</div><div class="role-nm">DEV TEAM</div><div class="role-d">Creates the actual product.</div></div>
+    </div>
+    <div class="mosaic-done" id="mosaicDone"></div>
+  </div>
+
+  <!-- ════════════ SCREEN 10 — CRISIS / CRIPTA ════════════ -->
+  <div class="screen" id="screen-10" data-screen="10">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 8 — LA CRIPTA DEL CANVI</div>
+    <div class="space-label">Week 3 · The Crypt of Change</div>
+    <h1 class="title xs">One column is missing.</h1>
+    <svg class="crisis-svg" viewBox="0 0 400 100" id="crisisSvg" aria-hidden="true">
+      <path d="M 67 22 Q 197 -5 327 22" stroke="rgba(212,175,55,.3)" stroke-width="0.8" fill="none" id="archL"/>
+      <path d="M 197 22 Q 262 -5 327 22" stroke="rgba(212,175,55,.3)" stroke-width="0.8" fill="none" id="archR"/>
+      <rect x="60" y="22" width="14" height="60" fill="rgba(212,175,55,.3)" stroke="rgba(212,175,55,.6)" stroke-width="0.5"/>
+      <ellipse cx="67" cy="20" rx="14" ry="4" fill="rgba(212,175,55,.44)"/>
+      <ellipse cx="67" cy="84" rx="14" ry="4" fill="rgba(212,175,55,.44)"/>
+      <rect x="320" y="22" width="14" height="60" fill="rgba(212,175,55,.3)" stroke="rgba(212,175,55,.6)" stroke-width="0.5"/>
+      <ellipse cx="327" cy="20" rx="14" ry="4" fill="rgba(212,175,55,.44)"/>
+      <ellipse cx="327" cy="84" rx="14" ry="4" fill="rgba(212,175,55,.44)"/>
+      <g id="midCol">
+        <rect x="190" y="22" width="14" height="60" fill="rgba(80,40,30,.25)" stroke="rgba(160,80,60,.6)" stroke-width="0.5" stroke-dasharray="3 3"/>
+        <ellipse cx="197" cy="20" rx="14" ry="4" fill="rgba(80,40,30,.4)"/>
+        <ellipse cx="197" cy="84" rx="14" ry="4" fill="rgba(80,40,30,.4)"/>
+        <path d="M 197 28 Q 210 40 200 55 Q 188 68 205 80" stroke="rgba(255,90,40,.72)" stroke-width="1" fill="none" id="crack1"/>
+      </g>
+      <g id="extraDmg" style="opacity:0;transition:opacity .6s">
+        <path d="M 67 32 Q 75 50 62 68" stroke="rgba(255,90,40,.42)" stroke-width="0.8" fill="none"/>
+        <path d="M 327 38 Q 318 55 332 70" stroke="rgba(255,90,40,.42)" stroke-width="0.8" fill="none"/>
+      </g>
+      <g id="healLayer" style="opacity:0;transition:opacity .8s">
+        <path d="M 197 28 Q 210 40 200 55 Q 188 68 205 80" stroke="#FFD700" stroke-width="1.8" fill="none"/>
+        <circle cx="200" cy="55" r="2.5" fill="#FFD700"/>
+        <circle cx="205" cy="80" r="2" fill="#FFD700"/>
+        <circle cx="210" cy="40" r="2" fill="#FFD700"/>
+      </g>
+    </svg>
+    <div class="story-l">
+      <p>Tuesday morning. Alex receives a message: <strong>Kat is ill.</strong></p>
+      <p>She was responsible for finalizing the learning slides. Without them, the team cannot move forward as planned.</p>
+      <div class="qq-quote"><b>TOM</b>"We need those slides for the pilot. Otherwise, we lose the whole week."</div>
+    </div>
+    <div class="quiz on" id="quiz-crisis">
+      <div class="qq"><b>Branching scenario · what now?</b>A key team member is suddenly unavailable. What is the best action?</div>
+      <div class="qo">
+        <button class="qb" data-c="0"><span class="ql">A</span>Stop the Sprint entirely and wait until Kat returns</button>
+        <button class="qb" data-c="1"><span class="ql">B</span>Continue individually, no need to coordinate</button>
+        <button class="qb" data-c="2"><span class="ql">C</span>Reorganize tasks together and adapt the Sprint</button>
+      </div>
+      <div class="qf" id="qf-crisis"></div>
+    </div>
+  </div>
+
+  <!-- ════════════ SCREEN 11 — KINTSUGI / AGILE RESPONSE ════════════ -->
+  <div class="screen" id="screen-11" data-screen="11">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 9 — KINTSUGI</div>
+    <div class="space-label">Broken made beautiful · The crack fills with gold</div>
+    <h1 class="title xs">Don't stop. Adapt. Deliver.</h1>
+    <svg class="heal-svg" viewBox="0 0 400 100" aria-hidden="true">
+      <path d="M 67 22 Q 197 -8 327 22" stroke="rgba(212,175,55,.5)" stroke-width="1" fill="none"/>
+      <rect x="60" y="22" width="14" height="60" fill="rgba(212,175,55,.35)" stroke="rgba(212,175,55,.72)" stroke-width="0.5"/>
+      <ellipse cx="67" cy="20" rx="14" ry="4" fill="rgba(212,175,55,.55)"/>
+      <ellipse cx="67" cy="84" rx="14" ry="4" fill="rgba(212,175,55,.55)"/>
+      <rect x="190" y="22" width="14" height="60" fill="rgba(212,175,55,.35)" stroke="rgba(212,175,55,.72)" stroke-width="0.5"/>
+      <ellipse cx="197" cy="20" rx="14" ry="4" fill="rgba(212,175,55,.55)"/>
+      <ellipse cx="197" cy="84" rx="14" ry="4" fill="rgba(212,175,55,.55)"/>
+      <rect x="320" y="22" width="14" height="60" fill="rgba(212,175,55,.35)" stroke="rgba(212,175,55,.72)" stroke-width="0.5"/>
+      <ellipse cx="327" cy="20" rx="14" ry="4" fill="rgba(212,175,55,.55)"/>
+      <ellipse cx="327" cy="84" rx="14" ry="4" fill="rgba(212,175,55,.55)"/>
+      <path d="M 197 28 Q 210 40 200 55 Q 188 68 205 80" stroke="#FFD700" stroke-width="2" fill="none"/>
+      <circle cx="200" cy="55" r="2.5" fill="#FFD700"/>
+      <circle cx="205" cy="80" r="2" fill="#FFD700"/>
+      <circle cx="210" cy="40" r="2" fill="#FFD700"/>
+      <text x="200" y="13" text-anchor="middle" fill="rgba(212,175,55,.62)" font-size="7" letter-spacing="2" font-family="DM Mono,monospace">REBUILT IN GOLD</text>
+    </svg>
+    <div class="alex-said" style="max-width:400px"><span class="who">ALEX</span>Let's focus. What can we do <span class="hl">now</span>?</div>
+    <p class="subtitle sm" style="margin-bottom:12px">Tom takes Kat's slides and adds his healthcare expertise. Another teammate uploads materials to the platform. Alex removes blockers. The Sprint <em style="color:var(--gold-bright);font-style:italic">continues</em> — adapted, not abandoned.</p>
+    <div class="challenges-grid" id="challengesGrid"></div>
+    <div class="principle"><b>SCRUM PRINCIPLE</b>Don't stop — adapt the plan and keep delivering value.</div>
+  </div>
+
+  <!-- ════════════ SCREEN 12 — DEFINITION OF DONE + Q3 ════════════ -->
+  <div class="screen" id="screen-12" data-screen="12">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 10 — DEFINITION OF DONE</div>
+    <div class="space-label">Sprint 4 · The mosaic completes</div>
+    <h1 class="title xs">When is the work truly done?</h1>
+    <div class="story-l heal">
+      <p>Week 4. The slides are finished. Tom shares them with healthcare contacts. Kat tests them with students. But —</p>
+      <div class="qq-quote"><b>TOM</b>"Some files are missing. Students still cannot use the course independently."</div>
+      <div class="qq-quote"><b>KAT</b>"We finished the slides… but maybe it isn't really done yet."</div>
+      <p style="margin-top:9px"><em style="color:var(--gold);font-style:italic">Everyone has a different idea of "done."</em></p>
+    </div>
+    <p class="subtitle sm" style="margin-bottom:10px">Build the team's <em style="color:var(--gold-bright)">Definition of Done</em> — tap each tile to lock it in.</p>
+    <div class="dod-stage">
+      <svg class="dod-mosaic" viewBox="0 0 540 50" id="dodMosaic" aria-hidden="true"><g id="dodTiles"></g></svg>
+      <div class="dod-status" id="dodStatus">0 / 5 tiles placed</div>
+      <div class="dod-grid" id="dodGrid"></div>
+    </div>
+    <div class="quiz locked" id="quiz-4">
+      <div class="qq"><b>Knowledge check · Q3</b>What is the Definition of Done?</div>
+      <div class="qo">
+        <button class="qb" data-c="0"><span class="ql">A</span>A task assigned to one specific team member</button>
+        <button class="qb" data-c="1"><span class="ql">B</span>A shared team agreement on when work is truly complete</button>
+        <button class="qb" data-c="2"><span class="ql">C</span>A final presentation given to all stakeholders</button>
+      </div>
+      <div class="qf" id="qf-4"></div>
+    </div>
+  </div>
+
+  <!-- ════════════ SCREEN 13 — EL MIRADOR (RETROSPECTIVE) ════════════ -->
+  <div class="screen" id="screen-13" data-screen="13">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 11 — EL MIRADOR DEL FUTUR</div>
+    <div class="space-label">The Viewpoint of the Future · Final Retrospective on the rooftop</div>
+    <h1 class="title xs">They didn't work more hours.<br>They worked more focused.</h1>
+    <div class="def-box" style="max-width:540px;margin-bottom:18px"><b>RETROSPECTIVE</b><span>After week 4 — and finishing the project — the team gathers for a final retrospective. The retrospective is essential: it's the moment to look back, identify what to <em style="color:var(--gold);font-style:italic">keep</em> for the next Sprint, and what to <em style="color:var(--gold);font-style:italic">change</em>.</span></div>
+    <svg class="roof-svg" viewBox="0 0 600 170" aria-hidden="true">
+      <defs>
+        <radialGradient id="moonG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFE9B0" stop-opacity="0.45"/><stop offset="100%" stop-color="#FFE9B0" stop-opacity="0"/></radialGradient>
+      </defs>
+      <circle cx="465" cy="32" r="52" fill="url(#moonG)"/>
+      <circle cx="465" cy="32" r="12" fill="rgba(255,233,176,.55)"/>
+      <g opacity="0.72">
+        <circle cx="40" cy="22" r="1" fill="#F5EDD6"/><circle cx="120" cy="38" r="0.8" fill="#F5EDD6"/><circle cx="220" cy="18" r="1.2" fill="#F5EDD6"/>
+        <circle cx="310" cy="42" r="0.7" fill="#F5EDD6"/><circle cx="390" cy="22" r="1" fill="#F5EDD6"/><circle cx="560" cy="48" r="0.8" fill="#F5EDD6"/>
+        <circle cx="80" cy="60" r="0.6" fill="#F5EDD6"/><circle cx="170" cy="65" r="0.9" fill="#F5EDD6"/><circle cx="500" cy="78" r="0.8" fill="#F5EDD6"/>
+      </g>
+      <path d="M 0 122 L 0 96 Q 22 70 36 100 L 36 122 Z" fill="rgba(80,55,40,.42)" stroke="rgba(212,175,55,.2)" stroke-width="0.5"/>
+      <path d="M 60 122 L 60 88 Q 78 60 92 92 L 92 122 Z" fill="rgba(80,55,40,.38)" stroke="rgba(212,175,55,.22)" stroke-width="0.5"/>
+      <path d="M 560 122 L 560 84 Q 575 58 592 90 L 592 122 Z" fill="rgba(80,55,40,.42)" stroke="rgba(212,175,55,.22)" stroke-width="0.5"/>
+      <path d="M 530 122 L 530 96 Q 542 76 553 100 L 553 122 Z" fill="rgba(80,55,40,.34)" stroke="rgba(212,175,55,.2)" stroke-width="0.5"/>
+      <g>
+        <path d="M 228 122 Q 228 72 252 35 Q 276 5 298 35 Q 322 72 322 122 Z" fill="rgba(212,175,55,.2)" stroke="#D4AF37" stroke-width="1"/>
+        <path d="M 208 122 L 208 85 Q 220 65 230 88 L 230 122 Z" fill="rgba(212,175,55,.14)" stroke="rgba(212,175,55,.58)" stroke-width="0.8"/>
+        <path d="M 323 122 L 323 80 Q 338 55 350 86 L 350 122 Z" fill="rgba(212,175,55,.14)" stroke="rgba(212,175,55,.58)" stroke-width="0.8"/>
+        <circle cx="275" cy="32" r="2.5" fill="#FFD700"/>
+        <circle cx="275" cy="60" r="1.5" fill="#FFD700" opacity="0.7"/>
+        <circle cx="275" cy="85" r="1.5" fill="#FFD700" opacity="0.7"/>
+      </g>
+      <path d="M 0 122 L 600 122 L 600 132 L 0 132 Z" fill="rgba(80,55,40,.58)"/>
+      <path d="M 0 132 L 600 132 L 600 170 L 0 170 Z" fill="rgba(40,25,15,.88)"/>
+      <line x1="0" y1="122" x2="600" y2="122" stroke="rgba(212,175,55,.42)" stroke-width="0.5"/>
+      <text x="300" y="158" text-anchor="middle" fill="rgba(212,175,55,.58)" font-size="9" letter-spacing="4" font-family="DM Mono,monospace">— LA PEDRERA · ROOFTOP —</text>
+    </svg>
+    <div class="team-quotes" id="teamQuotes">
+      <div class="tquote"><b>TOM</b>"We didn't just build a course — we changed how we work."</div>
+      <div class="tquote"><b>KAT</b>"And it actually feels easier than before."</div>
+      <div class="tquote toast"><b>ALEX · RAISES HIS GLASS</b>"To focus, teamwork — and our first agile success."</div>
+    </div>
+    <div class="refl-label" id="reflLabel">— A moment to look inward —</div>
+    <div class="stars-grid" id="starsGrid"></div>
+    <button class="cbtn hidden" id="carveBtnNext" data-next>
+      <span class="em">◈</span>
+      <span>Carve your first Sprint</span>
+      <span class="em-r">→</span>
+    </button>
+  </div>
+
+  <!-- ════════════ SCREEN 14 — COMMITMENT STONE ════════════ -->
+  <div class="screen" id="screen-14" data-screen="14">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">CHAPTER 12 — THE COMMITMENT STONE</div>
+    <div class="space-label">Carve your first Sprint into the cathedral</div>
+    <h1 class="title xs">Agile is not a method.<br>It is a <em style="color:var(--gold-bright);font-style:italic">mindset</em>. Begin yours.</h1>
+    <p class="subtitle sm" style="max-width:460px">Gaudí said: <em>"Originality is returning to the origin."</em> Your origin starts here — with the first Sprint <em style="color:var(--gold-bright)">you</em> will run.</p>
+    <div class="stone" id="stone">
+      <div class="stone-tag">✦<span>·</span>SPRINT I · YEAR ONE<span>·</span>✦</div>
+      <div class="fld" data-fid="0">
+        <label class="fld-l" for="sg1">My Sprint Goal <span>· one sentence</span></label>
+        <textarea id="sg1" placeholder="e.g. Launch a pilot version of our onboarding module..." aria-label="Sprint Goal"></textarea>
+      </div>
+      <div class="fld" data-fid="1">
+        <label class="fld-l">My Three Sprint Tasks <span>· small, visible, doable</span></label>
+        <div class="tasks-row">
+          <input id="t1" placeholder="Task 1" aria-label="Sprint Task 1"/>
+          <input id="t2" placeholder="Task 2" aria-label="Sprint Task 2"/>
+          <input id="t3" placeholder="Task 3" aria-label="Sprint Task 3"/>
+        </div>
+      </div>
+      <div class="fld" data-fid="2">
+        <label class="fld-l" for="dt1">My Daily Check-in Time <span>· 10 min · same time every day</span></label>
+        <input id="dt1" placeholder="e.g. Every morning 9:00 — for 10 minutes" aria-label="Daily Check-in Time"/>
+      </div>
+      <div class="stone-act">
+        <button class="carve-btn" id="carveBtn" disabled>◈ Carve into the cathedral</button>
+        <div class="stone-status" id="stoneStatus">0 / 5</div>
+      </div>
+      <div class="carved-msg">✦ &nbsp; Sealed in stone · the next arch begins &nbsp; ✦</div>
+    </div>
+    <div class="final-msg" id="finalMsg">The cathedral remembers what you commit to. Now — <em>build it.</em></div>
+    <div class="actions-row" id="actionsRow">
+      <button class="action-btn" id="restartBtn">↻ Restart the journey</button>
+      <button class="action-btn" id="printBtn">⎙ Print my commitment</button>
+    </div>
+  </div>
+
+  <!-- Bottom nav -->
+  <div id="nav">
+    <button class="nb" id="prevBtn" aria-label="Previous screen">&#8592;</button>
+    <div id="nav-mid"></div>
+    <button class="nb nb-next" id="nextBtn" aria-label="Next screen">&#8594;</button>
+  </div>
+  <div id="overlay"></div>
+</div>
+<script>
+'use strict';
+/* ═══════════════════════════════════════════════════════════════
+   SCRUM FOR BEGINNERS — Course Engine
+   ═══════════════════════════════════════════════════════════════ */
+
+// ─── COURSE DATA ────────────────────────────────────────────────
+const SCREENS = [
+  {n:1, space:'s2', chapter:'Title',             mid:'A microlearning journey'},
+  {n:2, space:'s1', chapter:'Chapter 1',         mid:'The chaos of Monday'},
+  {n:3, space:'s2', chapter:'Chapter 2',         mid:'Order begins to form'},
+  {n:4, space:'s2', chapter:'Chapter 3',         mid:'The cathedral rises'},
+  {n:5, space:'s2', chapter:'Chapter 4',         mid:'What a Sprint is'},
+  {n:6, space:'s2', chapter:'Chapter 4b',        mid:'Why one Sprint Goal'},
+  {n:7, space:'s2', chapter:'Chapter 5',         mid:'Sprint 1 begins'},
+  {n:8, space:'s2', chapter:'Chapter 6',         mid:'Three questions, ten minutes'},
+  {n:9, space:'s3', chapter:'Chapter 7',         mid:'The roles emerge'},
+  {n:10,space:'s4', chapter:'Chapter 8',         mid:'One column is missing'},
+  {n:11,space:'s4', chapter:'Chapter 9',         mid:'Broken made beautiful'},
+  {n:12,space:'s4', chapter:'Chapter 10',        mid:'A shared standard'},
+  {n:13,space:'s5', chapter:'Chapter 11',        mid:'The rooftop · reflection'},
+  {n:14,space:'s5', chapter:'Chapter 12',        mid:'Your first Sprint, carved'},
+];
+
+const SPACES = {
+  s1:{ // CHAOS
+    bg:'radial-gradient(ellipse 92% 72% at 50% 38%,#3A2C28 0%,#1A1208 52%,#4A2218 100%)',
+    tiles:['rgba(139,58,42,.55)','rgba(105,72,60,.42)','rgba(80,55,50,.65)','rgba(160,85,65,.28)'],
+    sz:[3,11], shape:'2px', anims:['tm0','tm1','tm0','tm1']
+  },
+  s2:{ // CATEDRAL
+    bg:'radial-gradient(ellipse 100% 50% at 50% 0%,rgba(232,120,40,.24) 0%,#0D2E52 42%,#040C1A 100%)',
+    tiles:['rgba(232,160,48,.42)','rgba(27,79,138,.38)','rgba(212,175,55,.35)','rgba(15,45,82,.52)'],
+    sz:[5,14], shape:'0px', anims:['tr','tr','tr','tr']
+  },
+  s3:{ // PATI ROLS
+    bg:'radial-gradient(ellipse 95% 88% at 50% 68%,#2D4A25 0%,#1A2E12 52%,#3A1808 100%)',
+    tiles:['rgba(139,58,42,.52)','rgba(61,122,74,.48)','rgba(212,175,55,.48)','rgba(80,130,60,.32)'],
+    sz:[5,14], shape:'50%', anims:['tc','tf','tc','tf']
+  },
+  s4:{ // CRIPTA
+    bg:'radial-gradient(ellipse 78% 68% at 50% 95%,#2A1808 0%,#0D0808 60%,#1A0A04 100%)',
+    tiles:['rgba(32,18,8,.88)','rgba(212,175,55,.32)','rgba(50,28,12,.72)','rgba(255,215,0,.22)'],
+    sz:[4,13], shape:'1px', anims:['tc','tc','tf','tc']
+  },
+  s5:{ // MIRADOR
+    bg:'radial-gradient(ellipse 100% 88% at 50% 100%,rgba(27,79,138,.32) 0%,#080E1C 48%,#020508 100%)',
+    tiles:['rgba(212,175,55,.62)','rgba(27,79,138,.42)','rgba(232,160,48,.38)','rgba(180,210,255,.22)'],
+    sz:[2,8], shape:'50%', anims:['tf','tf','tr','tf']
+  }
+};
+
+const ARCH_SVG = {
+  s1:`<path d="M0,760 Q15,580 35,420" stroke="rgba(139,58,42,.32)" stroke-width="1.5" fill="none" stroke-dasharray="10 8"/>
+      <path d="M0,360 Q22,290 18,180" stroke="rgba(100,65,50,.24)" stroke-width="1" fill="none" stroke-dasharray="5 14"/>
+      <path d="M1100,760 Q1085,580 1065,420" stroke="rgba(139,58,42,.32)" stroke-width="1.5" fill="none" stroke-dasharray="10 8"/>
+      <path d="M1100,360 Q1078,290 1082,180" stroke="rgba(100,65,50,.24)" stroke-width="1" fill="none" stroke-dasharray="5 14"/>
+      <rect x="8" y="195" width="26" height="6" fill="rgba(139,58,42,.22)" transform="rotate(-18,21,198)"/>
+      <rect x="1066" y="195" width="26" height="6" fill="rgba(139,58,42,.22)" transform="rotate(18,1079,198)"/>`,
+  s2:`<path d="M0,760 Q0,360 80,42" stroke="rgba(232,160,48,.22)" stroke-width="1.5" fill="none"/>
+      <path d="M0,760 Q-18,360 90,42" stroke="rgba(27,79,138,.17)" stroke-width="1" fill="none"/>
+      <path d="M28,760 Q72,540 102,180" stroke="rgba(212,175,55,.1)" stroke-width="0.5" fill="none"/>
+      <path d="M1100,760 Q1100,360 1020,42" stroke="rgba(232,160,48,.22)" stroke-width="1.5" fill="none"/>
+      <path d="M1100,760 Q1118,360 1010,42" stroke="rgba(27,79,138,.17)" stroke-width="1" fill="none"/>
+      <path d="M1072,760 Q1028,540 998,180" stroke="rgba(212,175,55,.1)" stroke-width="0.5" fill="none"/>
+      <path d="M80,42 Q550,-32 1020,42" stroke="rgba(212,175,55,.14)" stroke-width="1" fill="none"/>`,
+  s3:`<rect x="2" y="430" width="32" height="330" fill="rgba(139,58,42,.1)" rx="2"/>
+      <ellipse cx="18" cy="428" rx="58" ry="18" fill="rgba(212,175,55,.1)" stroke="rgba(212,175,55,.18)" stroke-width="0.5"/>
+      <rect x="1066" y="430" width="32" height="330" fill="rgba(139,58,42,.1)" rx="2"/>
+      <ellipse cx="1082" cy="428" rx="58" ry="18" fill="rgba(212,175,55,.1)" stroke="rgba(212,175,55,.18)" stroke-width="0.5"/>
+      <circle cx="550" cy="62" r="44" fill="none" stroke="rgba(212,175,55,.1)" stroke-width="0.5"/>
+      <circle cx="550" cy="62" r="26" fill="rgba(212,175,55,.06)"/>
+      <circle cx="550" cy="62" r="7" fill="rgba(212,175,55,.18)"/>`,
+  s4:`<path d="M0,760 Q0,400 62,210" stroke="rgba(38,20,8,.72)" stroke-width="2" fill="none"/>
+      <path d="M1100,760 Q1100,400 1038,210" stroke="rgba(38,20,8,.72)" stroke-width="2" fill="none"/>
+      <path d="M62,210 Q550,-20 1038,210" stroke="rgba(28,14,5,.65)" stroke-width="2" fill="none"/>
+      <path d="M468,200 Q505,310 530,460 Q545,520 556,620" stroke="rgba(255,215,0,.28)" stroke-width="1" fill="none"/>
+      <path d="M632,200 Q615,260 590,420" stroke="rgba(255,215,0,.18)" stroke-width="0.5" fill="none"/>
+      <circle cx="530" cy="460" r="3" fill="rgba(255,215,0,.38)"/>`,
+  s5:`<path d="M4,760 L18,448 L28,414 L38,448 L52,760" fill="rgba(27,79,138,.1)" stroke="rgba(212,175,55,.16)" stroke-width="0.5"/>
+      <ellipse cx="28" cy="412" rx="22" ry="11" fill="rgba(27,79,138,.15)" stroke="rgba(212,175,55,.18)" stroke-width="0.5"/>
+      <path d="M1048,760 L1062,448 L1072,414 L1082,448 L1096,760" fill="rgba(27,79,138,.1)" stroke="rgba(212,175,55,.16)" stroke-width="0.5"/>
+      <ellipse cx="1072" cy="412" rx="22" ry="11" fill="rgba(27,79,138,.15)" stroke="rgba(212,175,55,.18)" stroke-width="0.5"/>
+      <circle cx="155" cy="302" r="3" fill="rgba(212,175,55,.55)"/>
+      <circle cx="262" cy="202" r="2" fill="rgba(212,175,55,.45)"/>
+      <circle cx="92" cy="162" r="4" fill="rgba(212,175,55,.38)"/>
+      <circle cx="858" cy="135" r="3" fill="rgba(212,175,55,.55)"/>
+      <circle cx="935" cy="222" r="2" fill="rgba(212,175,55,.45)"/>
+      <circle cx="1010" cy="166" r="4" fill="rgba(212,175,55,.38)"/>
+      <circle cx="550" cy="92" r="5" fill="rgba(232,160,48,.48)"/>
+      <circle cx="305" cy="118" r="3" fill="rgba(212,175,55,.42)"/>
+      <circle cx="780" cy="105" r="3" fill="rgba(212,175,55,.42)"/>
+      <circle cx="420" cy="65" r="2" fill="rgba(212,175,55,.35)"/>
+      <circle cx="680" cy="72" r="2" fill="rgba(212,175,55,.35)"/>`
+};
+
+// ─── CONTENT DATA ────────────────────────────────────────────────
+const CHAOS_CARDS = [
+  {t:'New client idea?',     x:12, y:18, anim:'drift1', dur:8},
+  {t:'Q3 budget review',     x:62, y:8,  anim:'drift2', dur:11},
+  {t:'Coffee machine broken',x:5,  y:62, anim:'drift3', dur:9},
+  {t:'Vacation policy?',     x:72, y:62, anim:'drift4', dur:10},
+  {t:'LMS comparison...',    x:14, y:42, anim:'drift2', dur:12},
+  {t:'Marketing plan',       x:74, y:32, anim:'drift1', dur:9},
+  {t:'Internships?',         x:8,  y:82, anim:'drift4', dur:11},
+  {t:'Course pilot WHEN?',   x:62, y:82, anim:'drift3', dur:8},
+  {t:'Old slides...',        x:42, y:6,  anim:'drift4', dur:10},
+];
+
+const BACKLOG_ITEMS = [
+  'Define target group',
+  'Research market needs',
+  'Outline course modules',
+  'Create initial materials',
+  'Select LMS platform',
+  'Pilot one module',
+  'Collect feedback',
+];
+
+const FOUR_COLS = [
+  {ic:'◫', name:'Backlog',       sub:'The stone quarry', def:'All tasks for the project. The full material from which the team chooses what to build next. Nothing is forgotten, nothing is lost.'},
+  {ic:'⟁', name:'Sprint',        sub:'The arch',         def:'A short, time-boxed work phase — usually one to four weeks. One arch of the cathedral, built end to end, holding its weight before the next begins.'},
+  {ic:'◌', name:'Daily Scrum',   sub:'The lantern',      def:'Ten minutes. Three questions. What did you do? What will you do? What is blocking you? A lantern carried through the cathedral, lighting the next step.'},
+  {ic:'⟲', name:'Retrospective', sub:'The spiral',       def:'At the end of each Sprint, the team reflects on how they worked together. A spiral staircase — always returning to where they started, always one step higher.'},
+];
+
+const SPRINT_TASKS = ['Define target group','Outline modules','Create materials','Select LMS','Pilot one module'];
+
+const DAILY_PILLARS = [
+  {n:'I',   q:'What did<br>you do<br>yesterday?'},
+  {n:'II',  q:'What will<br>you do<br>today?'},
+  {n:'III', q:'Any<br>obstacles?'},
+];
+const DAILY_REASONS = [
+  'Creates focus and accountability',
+  'Makes progress visible',
+  'Motivates through small daily wins',
+  'Solves problems before they grow',
+];
+
+const CHALLENGES = [
+  'Team members suddenly unavailable',
+  'Tasks not clearly defined yet',
+  'Dependencies between tasks block progress',
+  'A single person is overloaded',
+];
+
+const DOD = [
+  'Content complete',
+  'Visuals added',
+  'Files uploaded & accessible',
+  'Students can use it independently',
+  'Feedback reviewed & integrated',
+];
+
+const REFL_STARS = [
+  'Where do meetings in YOUR team lose focus?',
+  'What is one task YOU could break into a Sprint this week?',
+  'How would a daily 10-minute check-in change your team?',
+  'Who could be your Scrum Master, Product Owner, and Dev Team?',
+];
+
+const ROLE_MATCHES = {alex:'sm', tom:'po', kat:'dt'};
+const CHAR_NAMES   = {alex:'Alex', tom:'Tom', kat:'Kat'};
+const CHAR_ICONS   = {alex:'◈',    tom:'⟁',    kat:'✤'};
+
+// ─── QUIZ DEFINITIONS ──────────────────────────────────────────
+const QUIZZES = {
+  q1:{ correct:1, fb:[
+    {t:'NOT QUITE',    x:'Scrum is not about creating more work — it\u2019s about making the existing work clearer. Each small task is a single tile in the mosaic.'},
+    {t:'PRECISELY',    x:'Each small task is a tile placed in the cathedral. When you can see every tile, you can see the whole picture — and you know exactly what is done, what is next, and what to focus on.'},
+    {t:'NOT QUITE',    x:'Scrum is about clarity and focus, not headcount. Even one person can run a Sprint by breaking work into visible pieces.'},
+  ]},
+  qSprint:{ correct:1, fb:[
+    {t:'NOT THE POINT',     x:'A plan that impresses is not the same as a plan that ships. Sprint Goals are for the TEAM, not for outside performance. The point is internal focus — not appearances.'},
+    {t:'PRECISELY',         x:'A single Sprint Goal is one arch — and one arch can be finished. The moment a team commits to two, three, or five goals at once, momentum scatters. Focus is the structural weight of Scrum.'},
+    {t:'TEMPTING — BUT NO', x:'Skipping work doesn\u2019t make a Sprint faster. A real Sprint is short BECAUSE it is focused, not the other way around. Finishing one valuable thing every cycle is what creates speed over time.'},
+    {t:'NOT QUITE',         x:'Pressure is the opposite of Scrum. The Sprint Goal exists to PROTECT the team from pressure — by saying: this week, only this. Nothing else. The arch holds because nothing extra is asked of it.'},
+  ]},
+  q2:{ correct:1, fb:[
+    {t:'A DEEPER TRAP', x:'This is the most common mistake. Side-conversations feel productive but bleed time from the Sprint Goal. Capture the idea on a card for the backlog — and bring focus back to the arch you\u2019re building NOW.'},
+    {t:'PRECISELY',     x:'The Sprint Goal is one arch. While it\u2019s being built, every other conversation is a distraction that weakens it. Alex\u2019s job as Scrum Master: protect the goal, capture new ideas for later.'},
+    {t:'TOO HEAVY',     x:'Canceling kills momentum. The Sprint is the cathedral\u2019s arch — once started, it must hold. Just refocus, and move on.'},
+  ]},
+  q3:{ correct:2, fb:[
+    {t:'NOT THE INTENT', x:'A Daily Scrum is for the TEAM, not for control. It is alignment, not surveillance. The team owns it.'},
+    {t:'NOT QUITE',      x:'It doesn\u2019t replace other meetings — it serves a different purpose: rapid daily alignment around the current Sprint Goal.'},
+    {t:'YES',            x:'Three questions. Ten minutes. Everyone leaves knowing where the team stands. Obstacles surface immediately — and someone (often the Scrum Master) removes them before they grow.'},
+  ]},
+  qCrisis:{ correct:2, fb:[
+    {t:'TOO HEAVY',  x:'Stopping the Sprint freezes everything. The cathedral is already half-built. In Scrum, agility means we ADAPT to disruption, not retreat from it.'},
+    {t:'DANGEROUS',  x:'Working without coordination is how cracks spread. Without daily alignment, three people will solve the same problem differently — and the Sprint Goal disappears.'},
+    {t:'PRECISELY',  x:'Knowledge is shared in a Scrum team. Tom can take Kat\u2019s work. Another teammate uploads. Alex removes blockers. The Sprint adapts — the value still ships. This is called a self-organizing team.'},
+  ]},
+  q4:{ correct:1, fb:[
+    {t:'TOO INDIVIDUAL', x:'A Definition of Done is never owned by one person. It is a SHARED contract. Without that, every team member finishes at a different threshold.'},
+    {t:'EXACTLY',        x:'The Definition of Done is a shared team standard for "complete." It removes ambiguity. Everyone knows when a task is truly finished — and the team commits to that bar every Sprint.'},
+    {t:'NOT QUITE',      x:'A presentation might happen at Sprint Review, but it is not the Definition of Done. The DoD is the quality bar — applied to EVERY task, every Sprint.'},
+  ]},
+};
+
+// ─── STATE ─────────────────────────────────────────────────────
+const state = {
+  current: 1,
+  total: SCREENS.length,
+  prevSpace: null,
+  busy: false,
+  gates: {
+    1:true,                       // title — always pass
+    2:false,                      // catch a card
+    3:false,                      // Q1 answered
+    4:false,                      // tap a column
+    5:true,                       // sprint intro — read
+    6:false,                      // sprint quiz answered
+    7:false,                      // decision Q2 answered
+    8:false,                      // daily scrum Q3 answered
+    9:false,                      // roles drag-drop complete
+    10:false,                     // crisis quiz answered
+    11:true,                      // kintsugi — read
+    12:false,                     // DoD quiz answered
+    13:false,                     // mirador — auto unlocks
+    14:true,                      // commitment stone — final
+  },
+  visited: new Set([1]),
+  q1Done:false, qSprintDone:false, q2Done:false, q3Done:false,
+  qCrisisDone:false, q4Done:false,
+  placedRoles:0, dodCount:0,
+  miradorAnimDone:false, carved:false,
+  s2_built:false, s3_built:false, s4_built:false, s7_built:false,
+  s8_built:false, s9_built:false, s11_built:false, s12_built:false,
+  s13_built:false,
+};
+
+// ─── DOM REFS ──────────────────────────────────────────────────
+const $bg = document.getElementById('bg');
+const $tiles = document.getElementById('tiles');
+const $arch = document.getElementById('archSvg');
+const $chap = document.getElementById('chap');
+const $counter = document.getElementById('counter');
+const $progress = document.getElementById('progress');
+const $navMid = document.getElementById('nav-mid');
+const $overlay = document.getElementById('overlay');
+const $prevBtn = document.getElementById('prevBtn');
+const $nextBtn = document.getElementById('nextBtn');
+
+// ─── PROGRESS DOTS ─────────────────────────────────────────────
+SCREENS.forEach((s,i)=>{
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.setAttribute('aria-label', `Go to screen ${i+1}: ${s.chapter}`);
+  d.title = s.chapter;
+  d.onclick = ()=>{
+    // Allow navigation back to visited screens
+    if(state.visited.has(i+1)) goTo(i+1);
+  };
+  $progress.appendChild(d);
+});
+
+function updateDots(){
+  const dots = $progress.children;
+  for(let i=0;i<dots.length;i++){
+    const idx = i+1;
+    dots[i].className = 'dot' + (idx===state.current?' active' : state.visited.has(idx) && idx<state.current ? ' visited' : '');
+  }
+}
+
+// ─── TILE BACKDROP ─────────────────────────────────────────────
+function buildTiles(spaceKey){
+  $tiles.innerHTML='';
+  const sp = SPACES[spaceKey]; if(!sp) return;
+  const w = document.getElementById('stage').clientWidth;
+  const h = document.getElementById('stage').clientHeight;
+  for(let i=0;i<30;i++){
+    const el = document.createElement('div');
+    const sz = (sp.sz[0]+Math.random()*(sp.sz[1]-sp.sz[0])).toFixed(1);
+    const x = (Math.random()*w).toFixed(1);
+    const y = (Math.random()*h).toFixed(1);
+    const cl = sp.tiles[i%sp.tiles.length];
+    const rot = Math.round(Math.random()*360);
+    const dur = (8+Math.random()*16).toFixed(1);
+    const del = (-Math.random()*dur).toFixed(1);
+    const an = sp.anims[i%sp.anims.length];
+    el.className='mt';
+    el.style.cssText = `width:${sz}px;height:${sz}px;left:${x}px;top:${y}px;background:${cl};border-radius:${sp.shape};--r:${rot}deg;animation:${an} ${dur}s ${del}s infinite ease-in-out`;
+    $tiles.appendChild(el);
+  }
+}
+
+// ─── NAV / GATING ──────────────────────────────────────────────
+function updateNav(){
+  $prevBtn.disabled = state.current === 1;
+  const gate = state.gates[state.current];
+  const isLast = state.current === state.total;
+  $nextBtn.disabled = !gate || isLast;
+  $nextBtn.style.opacity = $nextBtn.disabled ? '.18' : '1';
+  $counter.textContent = String(state.current).padStart(2,'0') + ' / ' + String(state.total).padStart(2,'0');
+  $chap.textContent = SCREENS[state.current-1].chapter;
+  $navMid.innerHTML = 'Story arc<span>·</span>' + SCREENS[state.current-1].mid;
+}
+
+function unlock(screenNo){
+  state.gates[screenNo] = true;
+  if(state.current === screenNo) updateNav();
+}
+
+// ─── SCREEN TRANSITIONS ────────────────────────────────────────
+function goTo(n){
+  if(state.busy || n<1 || n>state.total) return;
+  state.busy = true;
+  $overlay.style.transition = 'opacity .35s ease';
+  $overlay.style.opacity = '1';
+  setTimeout(()=>{
+    state.current = n;
+    state.visited.add(n);
+    render();
+    $overlay.style.transition = 'opacity .45s ease';
+    $overlay.style.opacity = '0';
+    setTimeout(()=>{ state.busy = false; }, 470);
+  }, 380);
+}
+
+function render(){
+  // Show screen
+  document.querySelectorAll('.screen').forEach(s=>{
+    s.classList.toggle('on', parseInt(s.dataset.screen) === state.current);
+  });
+  // Reset scroll
+  const cur = document.querySelector(`.screen[data-screen="${state.current}"]`);
+  if(cur) cur.scrollTop = 0;
+
+  // Update space
+  const sc = SCREENS[state.current-1];
+  if(sc.space !== state.prevSpace){
+    $bg.style.background = SPACES[sc.space].bg;
+    buildTiles(sc.space);
+    $arch.innerHTML = `<title>Architectural decoration</title><desc>Gaud\u00ed-inspired space decoration</desc>${ARCH_SVG[sc.space]||''}`;
+    state.prevSpace = sc.space;
+  }
+  // Build per-screen interactive content
+  buildScreen(state.current);
+
+  updateNav();
+  updateDots();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PER-SCREEN BUILDERS & INTERACTIONS
+// ═══════════════════════════════════════════════════════════════
+
+function buildScreen(n){
+  if(n===2 && !state.s2_built) buildChaosCards();
+  if(n===3 && !state.s3_built) buildBacklog();
+  if(n===4 && !state.s4_built) buildFourCols();
+  if(n===6) setupQuiz('quiz-6', 'qf-sprint', QUIZZES.qSprint, ()=>{state.qSprintDone=true; unlock(6);});
+  if(n===7 && !state.s7_built) buildSprint1();
+  if(n===8 && !state.s8_built) buildDailyScrum();
+  if(n===9 && !state.s9_built) buildRoles();
+  if(n===10) setupCrisis();
+  if(n===11 && !state.s11_built) buildChallenges();
+  if(n===12 && !state.s12_built) buildDoD();
+  if(n===13 && !state.s13_built) buildMirador();
+  if(n===14) setupCommitmentStone();
+}
+
+// ─── SCREEN 2: CHAOS CARDS ─────────────────────────────────────
+function buildChaosCards(){
+  state.s2_built = true;
+  const screen = document.getElementById('screen-2');
+  CHAOS_CARDS.forEach(c=>{
+    const el = document.createElement('div');
+    el.className='cc';
+    el.textContent = c.t;
+    const rot = (Math.random()*8-4).toFixed(1);
+    el.style.cssText = `left:${c.x}%;top:${c.y}%;--cr:${rot}deg;transform:rotate(${rot}deg);animation:${c.anim} ${c.dur}s ${(-Math.random()*c.dur).toFixed(1)}s infinite ease-in-out`;
+    el.onclick = ()=>{
+      if(state.busy) return;
+      el.classList.add('caught');
+      state.busy = true;
+      unlock(2);
+      setTimeout(()=>{ state.busy=false; goTo(3); }, 900);
+    };
+    screen.appendChild(el);
+  });
+}
+
+// ─── SCREEN 3: BACKLOG + Q1 ────────────────────────────────────
+function buildBacklog(){
+  state.s3_built = true;
+  const b = document.getElementById('backlogBoard');
+  BACKLOG_ITEMS.forEach((t,i)=>{
+    const el = document.createElement('div');
+    el.className='bl';
+    el.textContent = t;
+    el.style.animationDelay = (.15 + i*.12) + 's';
+    b.appendChild(el);
+  });
+  setTimeout(()=>{
+    document.getElementById('quiz-1').classList.add('on');
+    document.getElementById('quiz-1').classList.remove('locked');
+    setupQuiz('quiz-1', 'qf-1', QUIZZES.q1, ()=>{state.q1Done=true; unlock(3);});
+  }, BACKLOG_ITEMS.length*120 + 700);
+}
+
+// ─── SCREEN 4: FOUR PILLARS ────────────────────────────────────
+function buildFourCols(){
+  state.s4_built = true;
+  const c = document.getElementById('fourCols');
+  FOUR_COLS.forEach((co)=>{
+    const el = document.createElement('div');
+    el.className='col-pillar';
+    el.innerHTML = `<div class="col-i">${co.ic}</div><div class="col-n">${co.name}</div><div class="col-s">${co.sub}</div>`;
+    el.onclick = ()=>{
+      [...c.children].forEach(x=>x.classList.remove('active'));
+      el.classList.add('active');
+      const dp = document.getElementById('colDef');
+      dp.innerHTML = `<b>${co.name.toUpperCase()} · ${co.sub}</b>${co.def}`;
+      dp.classList.add('on');
+      unlock(4);
+    };
+    c.appendChild(el);
+  });
+}
+
+// ─── SCREEN 7: SPRINT 1 + DECISION ─────────────────────────────
+function buildSprint1(){
+  state.s7_built = true;
+  const r = document.getElementById('sprintTasks');
+  SPRINT_TASKS.forEach((t,i)=>{
+    const el = document.createElement('div');
+    el.className='stask';
+    el.textContent = t;
+    el.style.opacity='0';
+    el.style.transform='translateY(10px)';
+    el.style.transition = `all .5s ${.1+i*.12}s cubic-bezier(.4,0,.2,1)`;
+    r.appendChild(el);
+    requestAnimationFrame(()=>{el.style.opacity='1'; el.style.transform='translateY(0)';});
+  });
+  setTimeout(()=>{
+    const qz = document.getElementById('quiz-2');
+    qz.classList.add('on');
+    qz.classList.remove('locked');
+    setupQuiz('quiz-2', 'qf-2', QUIZZES.q2, ()=>{state.q2Done=true; unlock(7);});
+  }, SPRINT_TASKS.length*120 + 700);
+}
+
+// ─── SCREEN 8: DAILY SCRUM ────────────────────────────────────
+function buildDailyScrum(){
+  state.s8_built = true;
+  const p = document.getElementById('dailyPillars');
+  DAILY_PILLARS.forEach((pl,i)=>{
+    const el = document.createElement('div');
+    el.className='pillar';
+    el.innerHTML = `<div class="pq-num">${pl.n}</div><div class="pcap"></div><div class="psh">${pl.q}</div><div class="pbase"></div>`;
+    el.style.opacity='0';
+    el.style.transform='translateY(20px)';
+    el.style.transition = `all .8s ${.15+i*.2}s cubic-bezier(.4,0,.2,1)`;
+    p.appendChild(el);
+    requestAnimationFrame(()=>{el.style.opacity='1'; el.style.transform='translateY(0)';});
+    setTimeout(()=>el.classList.add('lit'), 400+i*200+800);
+  });
+  const r = document.getElementById('dailyReasons');
+  DAILY_REASONS.forEach((rs,i)=>{
+    const el = document.createElement('div');
+    el.className='reason';
+    el.textContent = rs;
+    r.appendChild(el);
+    setTimeout(()=>el.classList.add('on'), 1500+i*200);
+  });
+  setTimeout(()=>{
+    const qz = document.getElementById('quiz-3');
+    qz.classList.add('on');
+    qz.classList.remove('locked');
+    setupQuiz('quiz-3', 'qf-3', QUIZZES.q3, ()=>{
+      state.q3Done = true;
+      unlock(8);
+      setTimeout(()=>document.getElementById('dailyHook').classList.add('on'), 800);
+    });
+  }, 2400);
+}
+
+// ─── SCREEN 9: ROLES DRAG & DROP ───────────────────────────────
+let _drag = null;
+function buildRoles(){
+  state.s9_built = true;
+  document.querySelectorAll('#screen-9 .char').forEach(ch=>{
+    ch.addEventListener('pointerdown', e => onDragStart(e, ch));
+    ch.addEventListener('pointermove', e => onDragMove(e, ch));
+    ch.addEventListener('pointerup',   e => onDragEnd(e, ch));
+    ch.addEventListener('pointercancel', () => onDragCancel(ch));
+  });
+}
+function onDragStart(e, ch){
+  if(ch.classList.contains('placed')) return;
+  ch.setPointerCapture(e.pointerId);
+  ch.classList.add('dragging');
+  const cs = getComputedStyle(ch);
+  const m = new DOMMatrix(cs.transform==='none' ? '' : cs.transform);
+  _drag = {el:ch, pid:e.pointerId, sx:e.clientX, sy:e.clientY, ox:m.m41, oy:m.m42};
+  e.preventDefault();
+}
+function onDragMove(e, ch){
+  if(!_drag || _drag.pid !== e.pointerId) return;
+  const dx = _drag.ox + (e.clientX - _drag.sx);
+  const dy = _drag.oy + (e.clientY - _drag.sy);
+  ch.style.transform = `translate(${dx}px,${dy}px)`;
+  ch.style.pointerEvents = 'none';
+  const below = document.elementFromPoint(e.clientX, e.clientY);
+  ch.style.pointerEvents = '';
+  document.querySelectorAll('#screen-9 .role').forEach(r=>{
+    const over = r === below || r.contains(below);
+    r.classList.toggle('hover', over && !r.classList.contains('correct'));
+  });
+}
+function onDragEnd(e, ch){
+  if(!_drag || _drag.pid !== e.pointerId) return;
+  ch.style.pointerEvents = 'none';
+  const below = document.elementFromPoint(e.clientX, e.clientY);
+  ch.style.pointerEvents = '';
+  let target = null;
+  document.querySelectorAll('#screen-9 .role').forEach(r=>{
+    r.classList.remove('hover');
+    if(!target && !r.classList.contains('correct') && (r === below || r.contains(below))) target = r;
+  });
+  ch.classList.remove('dragging');
+  if(target) handleRoleDrop(ch, target);
+  else returnHome(ch);
+  _drag = null;
+}
+function onDragCancel(ch){
+  if(_drag && _drag.el === ch){
+    ch.classList.remove('dragging');
+    ch.style.transform = '';
+    _drag = null;
+  }
+}
+function returnHome(ch){
+  ch.style.transition = 'transform .35s cubic-bezier(.4,1.5,.6,1)';
+  ch.style.transform = '';
+  setTimeout(()=>{ch.style.transition='';}, 360);
+}
+function handleRoleDrop(ch, role){
+  const ck = ch.dataset.ch, rk = role.dataset.rl;
+  if(ROLE_MATCHES[ck] === rk){
+    role.classList.add('correct');
+    const lbl = document.createElement('div');
+    lbl.className='role-placed';
+    lbl.innerHTML = `= ${CHAR_ICONS[ck]} ${CHAR_NAMES[ck]}`;
+    role.appendChild(lbl);
+    ch.classList.add('placed');
+    state.placedRoles++;
+    if(state.placedRoles === 3){
+      const md = document.getElementById('mosaicDone');
+      md.innerHTML = '<span>✦</span>  Mosaic complete · the team is whole  <span>✦</span>';
+      md.classList.add('on');
+      unlock(9);
+    }
+  } else {
+    role.classList.add('wrong');
+    setTimeout(()=>role.classList.remove('wrong'), 500);
+    returnHome(ch);
+  }
+}
+
+// ─── SCREEN 10: CRISIS ────────────────────────────────────────
+function setupCrisis(){
+  if(state.qCrisisDone) return;
+  const btns = document.querySelectorAll('#quiz-crisis .qb');
+  btns.forEach(b=>{
+    b.onclick = ()=>{
+      if(state.qCrisisDone) return;
+      state.qCrisisDone = true;
+      btns.forEach(bb=>bb.classList.add('dis'));
+      const i = parseInt(b.dataset.c);
+      const correct = i === QUIZZES.qCrisis.correct;
+      b.classList.add(correct ? 'cor' : 'wro');
+      if(!correct){btns[QUIZZES.qCrisis.correct].classList.add('cor'); btns[QUIZZES.qCrisis.correct].classList.remove('dis');}
+      const fb = document.getElementById('qf-crisis');
+      fb.innerHTML = `<b>${QUIZZES.qCrisis.fb[i].t}</b>${QUIZZES.qCrisis.fb[i].x}`;
+      fb.classList.add('on');
+      // Visual feedback on SVG
+      if(i===0){
+        document.getElementById('extraDmg').style.opacity='.5';
+        document.getElementById('archL').setAttribute('stroke','rgba(212,175,55,.12)');
+        document.getElementById('archR').setAttribute('stroke','rgba(212,175,55,.12)');
+      } else if(i===1){
+        document.getElementById('extraDmg').style.opacity='1';
+      } else {
+        document.getElementById('healLayer').style.opacity='1';
+        setTimeout(()=>document.getElementById('crack1').setAttribute('stroke','rgba(255,90,40,.1)'), 600);
+      }
+      unlock(10);
+    };
+  });
+}
+
+// ─── SCREEN 11: KINTSUGI CHALLENGES ───────────────────────────
+function buildChallenges(){
+  state.s11_built = true;
+  const c = document.getElementById('challengesGrid');
+  CHALLENGES.forEach((t,i)=>{
+    const el = document.createElement('div');
+    el.className='chl';
+    el.textContent = t;
+    c.appendChild(el);
+    setTimeout(()=>el.classList.add('on'), 200+i*180);
+  });
+}
+
+// ─── SCREEN 12: DEFINITION OF DONE ────────────────────────────
+function buildDoD(){
+  state.s12_built = true;
+  const grid = document.getElementById('dodGrid');
+  // Build mosaic SVG tiles
+  const tilesG = document.getElementById('dodTiles');
+  const ns = 'http://www.w3.org/2000/svg';
+  for(let i=0;i<5;i++){
+    const cx = 70 + i*100;
+    const g = document.createElementNS(ns,'g'); g.id='dodT'+i;
+    const p = document.createElementNS(ns,'polygon');
+    p.setAttribute('points', `${cx},5 ${cx+22},25 ${cx},45 ${cx-22},25`);
+    p.setAttribute('fill','rgba(80,55,40,.32)');
+    p.setAttribute('stroke','rgba(212,175,55,.34)');
+    p.setAttribute('stroke-width','0.5');
+    p.style.transition='all .5s';
+    g.appendChild(p); tilesG.appendChild(g);
+    if(i<4){
+      const ln = document.createElementNS(ns,'line');
+      ln.setAttribute('x1', cx+22); ln.setAttribute('y1', 25);
+      ln.setAttribute('x2', cx+78); ln.setAttribute('y2', 25);
+      ln.setAttribute('stroke','rgba(212,175,55,.18)');
+      ln.setAttribute('stroke-width','0.5');
+      ln.setAttribute('stroke-dasharray','3 4');
+      tilesG.appendChild(ln);
+    }
+  }
+  DOD.forEach((t,i)=>{
+    const b = document.createElement('button');
+    b.className='dod-btn';
+    b.dataset.i = i;
+    b.textContent = t;
+    b.onclick = ()=>{
+      if(b.classList.contains('cf')) return;
+      b.classList.add('cf');
+      const tile = document.querySelector('#dodT'+i+' polygon');
+      tile.setAttribute('fill','#D4AF37');
+      tile.setAttribute('stroke','#FFD700');
+      tile.style.filter='drop-shadow(0 0 6px rgba(212,175,55,.55))';
+      state.dodCount++;
+      const st = document.getElementById('dodStatus');
+      st.textContent = state.dodCount + ' / 5 tiles placed';
+      if(state.dodCount === 5){
+        st.textContent = '✦ Definition of Done — the team\u2019s shared standard ✦';
+        st.classList.add('done');
+        const qz = document.getElementById('quiz-4');
+        qz.classList.add('on');
+        qz.classList.remove('locked');
+        setupQuiz('quiz-4', 'qf-4', QUIZZES.q4, ()=>{state.q4Done=true; unlock(12);});
+      }
+    };
+    grid.appendChild(b);
+  });
+}
+
+// ─── SCREEN 13: MIRADOR / RETROSPECTIVE ───────────────────────
+function buildMirador(){
+  state.s13_built = true;
+  if(state.miradorAnimDone) return;
+  state.miradorAnimDone = true;
+  const qs = document.querySelectorAll('#teamQuotes .tquote');
+  qs.forEach((q,i)=>setTimeout(()=>q.classList.add('on'), 400+i*700));
+  setTimeout(()=>document.getElementById('reflLabel').classList.add('on'), 2400);
+  const grid = document.getElementById('starsGrid');
+  REFL_STARS.forEach((s,i)=>{
+    const el = document.createElement('div');
+    el.className='star-q';
+    el.textContent = s;
+    grid.appendChild(el);
+    setTimeout(()=>el.classList.add('on'), 2700+i*250);
+  });
+  setTimeout(()=>{
+    document.getElementById('carveBtnNext').classList.add('reveal');
+    unlock(13);
+  }, 4000);
+}
+
+// ─── SCREEN 14: COMMITMENT STONE ──────────────────────────────
+function setupCommitmentStone(){
+  if(state.carved) return; // already done
+  const sg1 = document.getElementById('sg1');
+  const t1 = document.getElementById('t1');
+  const t2 = document.getElementById('t2');
+  const t3 = document.getElementById('t3');
+  const dt1 = document.getElementById('dt1');
+  const inputs = [sg1, t1, t2, t3, dt1];
+  const fieldRefs = [
+    document.querySelector('[data-fid="0"]'),
+    document.querySelector('[data-fid="1"]'),
+    document.querySelector('[data-fid="1"]'),
+    document.querySelector('[data-fid="1"]'),
+    document.querySelector('[data-fid="2"]')
+  ];
+  const btn = document.getElementById('carveBtn');
+  const status = document.getElementById('stoneStatus');
+  function check(){
+    const filled = inputs.map(i => i.value.trim().length > 0);
+    const count = filled.filter(Boolean).length;
+    status.textContent = count + ' / 5';
+    if(count === 5){
+      status.classList.add('full');
+      btn.disabled = false;
+    } else {
+      status.classList.remove('full');
+      btn.disabled = true;
+    }
+    inputs.forEach((inp, k)=>{
+      if(filled[k]) fieldRefs[k].classList.add('has-val');
+    });
+  }
+  inputs.forEach(inp=>{ inp.oninput = check; });
+  btn.onclick = ()=>{
+    if(btn.disabled || state.carved) return;
+    state.carved = true;
+    document.getElementById('stone').classList.add('carved');
+    setTimeout(()=>document.getElementById('finalMsg').classList.add('on'), 300);
+    setTimeout(()=>document.getElementById('actionsRow').classList.add('on'), 800);
+  };
+  // Action buttons
+  document.getElementById('restartBtn').onclick = ()=>{
+    if(confirm('Restart the journey from the beginning?')){
+      location.reload();
+    }
+  };
+  document.getElementById('printBtn').onclick = ()=>{
+    window.print();
+  };
+}
+
+// ─── SHARED QUIZ SETUP ────────────────────────────────────────
+function setupQuiz(quizId, fbId, Q, onDone){
+  const root = document.getElementById(quizId);
+  if(!root) return;
+  // Avoid double-binding
+  if(root.dataset.bound === '1') return;
+  root.dataset.bound = '1';
+  const buttons = root.querySelectorAll('.qb');
+  let done = false;
+  buttons.forEach(b=>{
+    b.onclick = ()=>{
+      if(done) return;
+      done = true;
+      buttons.forEach(bb=>bb.classList.add('dis'));
+      const i = parseInt(b.dataset.c);
+      const correct = i === Q.correct;
+      b.classList.add(correct ? 'cor' : 'wro');
+      if(!correct){
+        buttons[Q.correct].classList.add('cor');
+        buttons[Q.correct].classList.remove('dis');
+      }
+      const fb = document.getElementById(fbId);
+      fb.innerHTML = `<b>${Q.fb[i].t}</b>${Q.fb[i].x}`;
+      fb.classList.add('on');
+      onDone();
+    };
+  });
+}
+
+// ─── GLOBAL NAV BUTTONS ───────────────────────────────────────
+$prevBtn.onclick = ()=>goTo(state.current-1);
+$nextBtn.onclick = ()=>goTo(state.current+1);
+
+// Title-screen and Mirador "next" buttons
+document.querySelectorAll('[data-next]').forEach(b=>{
+  b.addEventListener('click', e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    if(state.current === 13 && !state.gates[13]) return; // wait for stars
+    goTo(state.current+1);
+  });
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', e=>{
+  if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if(e.key === 'ArrowRight' || e.key === 'PageDown'){
+    if(state.gates[state.current] && state.current < state.total) goTo(state.current+1);
+  } else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){
+    if(state.current > 1) goTo(state.current-1);
+  }
+});
+
+// ─── INITIAL RENDER ───────────────────────────────────────────
+render();
+setTimeout(()=>{
+  $overlay.style.opacity = '0';
+}, 300);
+</script>
+</body>
+</html>
