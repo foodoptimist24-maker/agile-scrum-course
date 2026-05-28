@@ -130,8 +130,22 @@ p.subtitle.sm{font-size:13.5px}
 
 /* ═══════════ SCREEN 1 — TITLE ═══════════ */
 
-/* ═══════════ SCREEN 2 — CHAOS / cards ═══════════ */
-.chaos-overlay{position:relative;z-index:11;background:radial-gradient(ellipse 92% 78% at 50% 50%,rgba(15,8,4,.82) 0%,rgba(15,8,4,.5) 60%,transparent 100%);padding:34px 56px;border-radius:50%;max-width:480px}
+/* ═══════════ SCREEN 2 — INTRODUCTION ═══════════ */
+.intro-screen{justify-content:flex-start}
+.intro-headline{margin-bottom:14px;color:var(--bone)}
+.intro-cathedral-wrap{width:100%;max-width:640px;margin:2px 0 18px;flex-shrink:0}
+.intro-cathedral{width:100%;height:auto;display:block}
+.intro-spaces-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(212,175,55,.8);flex-wrap:wrap}
+.intro-spaces-row .dot{color:rgba(212,175,55,.4)}
+.intro-prose{max-width:600px;margin-bottom:18px;flex-shrink:0}
+.intro-prose p{font-size:15px;line-height:1.7;color:rgba(245,237,214,.82);font-family:var(--body);margin-bottom:11px;text-align:center}
+.intro-prose p em{color:var(--gold);font-style:italic}
+.intro-prose .intro-watch{color:var(--bone);font-style:italic;font-size:15.5px;border-top:1px solid rgba(212,175,55,.22);border-bottom:1px solid rgba(212,175,55,.22);padding:13px 0;margin-top:4px}
+.intro-invitation{display:flex;flex-direction:column;align-items:center;gap:5px;margin-bottom:24px;flex-shrink:0}
+.intro-invitation span{font-family:var(--display);font-size:18px;font-style:italic;color:rgba(245,237,214,.78);line-height:1.4}
+.intro-invitation span.gold{color:var(--gold-bright);font-size:20px}
+
+/* ═══════════ SCREEN 2 — CHAOS / cards ═══════════ */.chaos-overlay{position:relative;z-index:11;background:radial-gradient(ellipse 92% 78% at 50% 50%,rgba(15,8,4,.82) 0%,rgba(15,8,4,.5) 60%,transparent 100%);padding:34px 56px;border-radius:50%;max-width:480px}
 .cc{position:absolute;background:rgba(50,32,28,.78);border:1px solid rgba(139,58,42,.55);padding:9px 15px;font-size:11.5px;color:rgba(245,237,214,.78);font-family:var(--mono);letter-spacing:.04em;cursor:pointer;transition:background .25s,border-color .25s,color .25s,box-shadow .25s;user-select:none;border-radius:1px;will-change:transform;z-index:8}
 .cc::before{content:'';position:absolute;top:-3px;left:50%;width:8px;height:8px;background:#5C2A1C;border:1px solid rgba(212,175,55,.32);border-radius:50%;transform:translateX(-50%)}
 .cc:hover{background:rgba(139,58,42,.6);border-color:rgba(212,175,55,.78);color:var(--bone);z-index:9;box-shadow:0 0 26px rgba(212,175,55,.32);animation-play-state:paused}
@@ -393,11 +407,92 @@ p.subtitle.sm{font-size:13.5px}
       <span>Enter the Cathedral</span>
       <span class="em-r">→</span>
     </button>
-    <div class="meta-line">14 SCREENS<i>·</i>5 SPACES<i>·</i>~10 MINUTES<i>·</i>1 FIRST SPRINT</div>
+    <div class="meta-line">15 SCREENS<i>·</i>5 SPACES<i>·</i>~10 MINUTES<i>·</i>1 FIRST SPRINT</div>
   </div>
 
-  <!-- ════════════ SCREEN 2 — CHAOS ════════════ -->
-  <div class="screen" id="screen-2" data-screen="2" style="justify-content:center">
+  <!-- ════════════ SCREEN 2 — INTRODUCTION / CONCEPT ════════════ -->
+  <div class="screen intro-screen" id="screen-2" data-screen="2">
+    <div class="orn"><em></em><b></b><em></em></div>
+    <div class="eyebrow">BEFORE YOU BEGIN</div>
+    <div class="space-label">A word about this experience</div>
+    <h1 class="title sm intro-headline">This is not a traditional course.</h1>
+
+    <div class="intro-cathedral-wrap">
+      <svg class="intro-cathedral" viewBox="0 0 640 200" aria-hidden="true">
+        <defs>
+          <radialGradient id="introGlow" cx="50%" cy="90%" r="70%">
+            <stop offset="0%" stop-color="rgba(212,175,55,.22)"/>
+            <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
+          </radialGradient>
+          <linearGradient id="introArch" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(232,160,48,.5)"/>
+            <stop offset="100%" stop-color="rgba(27,79,138,.2)"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="320" cy="185" rx="300" ry="40" fill="url(#introGlow)"/>
+        <!-- Five rising arches, each a "space", increasing in height toward the center -->
+        <!-- Space 1 (far left, lowest = chaos) -->
+        <path d="M 40 185 Q 40 130 75 110 Q 110 130 110 185 Z" fill="rgba(139,58,42,.32)" stroke="rgba(184,85,68,.7)" stroke-width="1.2"/>
+        <circle cx="75" cy="120" r="3" fill="rgba(184,85,68,.9)"/>
+        <!-- Space 2 -->
+        <path d="M 135 185 Q 135 105 178 78 Q 221 105 221 185 Z" fill="rgba(27,79,138,.3)" stroke="rgba(46,90,140,.75)" stroke-width="1.2"/>
+        <circle cx="178" cy="90" r="3" fill="rgba(74,143,212,.95)"/>
+        <!-- Space 3 (center, tallest = transformation) -->
+        <path d="M 250 185 Q 250 60 320 28 Q 390 60 390 185 Z" fill="rgba(61,122,74,.3)" stroke="rgba(92,153,104,.8)" stroke-width="1.4"/>
+        <circle cx="320" cy="42" r="4" fill="rgba(212,175,55,1)"/>
+        <path d="M 320 28 L 320 14" stroke="rgba(212,175,55,.8)" stroke-width="1.2"/>
+        <circle cx="320" cy="11" r="3" fill="rgba(255,215,0,1)"/>
+        <!-- Space 4 -->
+        <path d="M 419 185 Q 419 105 462 78 Q 505 105 505 185 Z" fill="rgba(139,98,48,.32)" stroke="rgba(139,98,48,.8)" stroke-width="1.2"/>
+        <circle cx="462" cy="90" r="3" fill="rgba(255,215,0,.85)"/>
+        <!-- Space 5 (far right) -->
+        <path d="M 530 185 Q 530 130 565 110 Q 600 130 600 185 Z" fill="rgba(107,82,148,.32)" stroke="rgba(107,82,148,.8)" stroke-width="1.2"/>
+        <circle cx="565" cy="120" r="3" fill="rgba(180,150,220,.9)"/>
+        <!-- Ground line -->
+        <line x1="20" y1="185" x2="620" y2="185" stroke="rgba(212,175,55,.35)" stroke-width="0.75"/>
+        <!-- Connecting trencadís dots between arches (scattered → ordered) -->
+        <circle cx="118" cy="170" r="2" fill="rgba(212,175,55,.4)"/>
+        <circle cx="232" cy="160" r="2" fill="rgba(212,175,55,.5)"/>
+        <circle cx="405" cy="160" r="2" fill="rgba(212,175,55,.5)"/>
+        <circle cx="518" cy="170" r="2" fill="rgba(212,175,55,.4)"/>
+        <!-- Space numbers -->
+        <text x="75" y="200" text-anchor="middle" fill="rgba(245,237,214,.55)" font-size="9" font-family="DM Mono,monospace">I</text>
+        <text x="178" y="200" text-anchor="middle" fill="rgba(245,237,214,.55)" font-size="9" font-family="DM Mono,monospace">II</text>
+        <text x="320" y="200" text-anchor="middle" fill="rgba(245,237,214,.7)" font-size="9" font-family="DM Mono,monospace">III</text>
+        <text x="462" y="200" text-anchor="middle" fill="rgba(245,237,214,.55)" font-size="9" font-family="DM Mono,monospace">IV</text>
+        <text x="565" y="200" text-anchor="middle" fill="rgba(245,237,214,.55)" font-size="9" font-family="DM Mono,monospace">V</text>
+      </svg>
+      <div class="intro-spaces-row">
+        <span>Chaos</span><span class="dot">·</span>
+        <span>Alignment</span><span class="dot">·</span>
+        <span>Belonging</span><span class="dot">·</span>
+        <span>Crisis</span><span class="dot">·</span>
+        <span>Transformation</span>
+      </div>
+    </div>
+
+    <div class="intro-prose">
+      <p>Inspired by the symbolic architecture of <em>Antoni Gaudí</em>, this experience invites you to explore Scrum through <em>five evolving spaces</em>.</p>
+      <p>Like a cathedral under construction, teams grow through structure, focus, adaptation, and collaboration.</p>
+      <p>As you follow Alex and his team, you move through spaces of chaos, alignment, crisis, reflection, and transformation. Each room represents a stage of agile teamwork. Each symbol reflects a deeper idea.</p>
+      <p class="intro-watch">Observe how scattered tasks slowly become a shared vision — how uncertainty turns into clarity — and how a disconnected group becomes a focused, agile team.</p>
+    </div>
+
+    <div class="intro-invitation">
+      <span>Enter the spaces.</span>
+      <span>Explore the architecture.</span>
+      <span class="gold">Build your first Sprint.</span>
+    </div>
+
+    <button class="cbtn" data-next>
+      <span class="em">◈</span>
+      <span>Begin the journey</span>
+      <span class="em-r">→</span>
+    </button>
+  </div>
+
+  <!-- ════════════ SCREEN 3 — CHAOS ════════════ -->
+  <div class="screen" id="screen-3" data-screen="3" style="justify-content:center">
     <div class="chaos-overlay">
       <div class="eyebrow">CHAPTER 1 — THE PROBLEM</div>
       <h1 class="title sm">Monday<br>Morning</h1>
@@ -407,7 +502,7 @@ p.subtitle.sm{font-size:13.5px}
   </div>
 
   <!-- ════════════ SCREEN 3 — TURNING POINT + Q1 ════════════ -->
-  <div class="screen" id="screen-3" data-screen="3">
+  <div class="screen" id="screen-4" data-screen="4">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 2 — THE TURNING POINT</div>
     <div class="space-label">La Plaça del Caos → La Catedral del Sprint</div>
@@ -427,7 +522,7 @@ p.subtitle.sm{font-size:13.5px}
   </div>
 
   <!-- ════════════ SCREEN 4 — FOUR PILLARS OF SCRUM ════════════ -->
-  <div class="screen" id="screen-4" data-screen="4">
+  <div class="screen" id="screen-5" data-screen="5">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 3 — LA CATEDRAL DEL SPRINT</div>
     <div class="space-label">Order emerges from chaos. The four columns rise.</div>
@@ -438,7 +533,7 @@ p.subtitle.sm{font-size:13.5px}
   </div>
 
   <!-- ════════════ SCREEN 5 — SPRINT INTRO ════════════ -->
-  <div class="screen" id="screen-5" data-screen="5">
+  <div class="screen" id="screen-6" data-screen="6">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 4 — INTRODUCING THE SPRINT</div>
     <div class="space-label">La Catedral del Sprint · Alex names what is happening</div>
@@ -459,7 +554,7 @@ p.subtitle.sm{font-size:13.5px}
   </div>
 
   <!-- ════════════ SCREEN 6 — SPRINT QUIZ ════════════ -->
-  <div class="screen" id="screen-6" data-screen="6">
+  <div class="screen" id="screen-7" data-screen="7">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 4B — KNOWLEDGE CHECK</div>
     <div class="space-label">La Catedral del Sprint · Test your understanding</div>
@@ -478,7 +573,7 @@ p.subtitle.sm{font-size:13.5px}
   </div>
 
   <!-- ════════════ SCREEN 7 — SPRINT 1 BEGINS + DECISION ════════════ -->
-  <div class="screen" id="screen-7" data-screen="7">
+  <div class="screen" id="screen-8" data-screen="8">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 5 — SPRINT 1 BEGINS</div>
     <div class="space-label">La Catedral del Sprint · Light floods in from above</div>
@@ -500,7 +595,7 @@ p.subtitle.sm{font-size:13.5px}
     </div>
   </div>
   <!-- ════════════ SCREEN 8 — DAILY SCRUM + Q2 ════════════ -->
-  <div class="screen" id="screen-8" data-screen="8">
+  <div class="screen" id="screen-9" data-screen="9">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 6 — THE DAILY SCRUM</div>
     <div class="space-label">Ten minutes. Three questions. Everything changes.</div>
@@ -522,7 +617,7 @@ p.subtitle.sm{font-size:13.5px}
   </div>
 
   <!-- ════════════ SCREEN 9 — EL PATI DE LES ROLS ════════════ -->
-  <div class="screen" id="screen-9" data-screen="9">
+  <div class="screen" id="screen-10" data-screen="10">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 7 — EL PATI DE LES ROLS</div>
     <div class="space-label">The Courtyard of Roles · Three sculptures, three roles</div>
@@ -650,7 +745,7 @@ p.subtitle.sm{font-size:13.5px}
   </div>
 
   <!-- ════════════ SCREEN 10 — CRISIS / CRIPTA ════════════ -->
-  <div class="screen" id="screen-10" data-screen="10">
+  <div class="screen" id="screen-11" data-screen="11">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 8 — LA CRIPTA DEL CANVI</div>
     <div class="space-label">Week 3 · The Crypt of Change</div>
@@ -698,7 +793,7 @@ p.subtitle.sm{font-size:13.5px}
   </div>
 
   <!-- ════════════ SCREEN 11 — KINTSUGI / AGILE RESPONSE ════════════ -->
-  <div class="screen" id="screen-11" data-screen="11">
+  <div class="screen" id="screen-12" data-screen="12">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 9 — KINTSUGI</div>
     <div class="space-label">Broken made beautiful · The crack fills with gold</div>
@@ -727,7 +822,7 @@ p.subtitle.sm{font-size:13.5px}
   </div>
 
   <!-- ════════════ SCREEN 12 — DEFINITION OF DONE + Q3 ════════════ -->
-  <div class="screen" id="screen-12" data-screen="12">
+  <div class="screen" id="screen-13" data-screen="13">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 10 — DEFINITION OF DONE</div>
     <div class="space-label">Sprint 4 · The mosaic completes</div>
@@ -756,7 +851,7 @@ p.subtitle.sm{font-size:13.5px}
   </div>
 
   <!-- ════════════ SCREEN 13 — EL MIRADOR (RETROSPECTIVE) ════════════ -->
-  <div class="screen" id="screen-13" data-screen="13">
+  <div class="screen" id="screen-14" data-screen="14">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 11 — EL MIRADOR DEL FUTUR</div>
     <div class="space-label">The Viewpoint of the Future · Final Retrospective on the rooftop</div>
@@ -805,7 +900,7 @@ p.subtitle.sm{font-size:13.5px}
   </div>
 
   <!-- ════════════ SCREEN 14 — COMMITMENT STONE ════════════ -->
-  <div class="screen" id="screen-14" data-screen="14">
+  <div class="screen" id="screen-15" data-screen="15">
     <div class="orn"><em></em><b></b><em></em></div>
     <div class="eyebrow">CHAPTER 12 — THE COMMITMENT STONE</div>
     <div class="space-label">Carve your first Sprint into the cathedral</div>
@@ -859,19 +954,20 @@ p.subtitle.sm{font-size:13.5px}
 // ─── COURSE DATA ────────────────────────────────────────────────
 const SCREENS = [
   {n:1, space:'s2', chapter:'Title',             mid:'A microlearning journey'},
-  {n:2, space:'s1', chapter:'Chapter 1',         mid:'The chaos of Monday'},
-  {n:3, space:'s2', chapter:'Chapter 2',         mid:'Order begins to form'},
-  {n:4, space:'s2', chapter:'Chapter 3',         mid:'The cathedral rises'},
-  {n:5, space:'s2', chapter:'Chapter 4',         mid:'What a Sprint is'},
-  {n:6, space:'s2', chapter:'Chapter 4b',        mid:'Why one Sprint Goal'},
-  {n:7, space:'s2', chapter:'Chapter 5',         mid:'Sprint 1 begins'},
-  {n:8, space:'s2', chapter:'Chapter 6',         mid:'Three questions, ten minutes'},
-  {n:9, space:'s3', chapter:'Chapter 7',         mid:'The roles emerge'},
-  {n:10,space:'s4', chapter:'Chapter 8',         mid:'One column is missing'},
-  {n:11,space:'s4', chapter:'Chapter 9',         mid:'Broken made beautiful'},
-  {n:12,space:'s4', chapter:'Chapter 10',        mid:'A shared standard'},
-  {n:13,space:'s5', chapter:'Chapter 11',        mid:'The rooftop · reflection'},
-  {n:14,space:'s5', chapter:'Chapter 12',        mid:'Your first Sprint, carved'},
+  {n:2, space:'s2', chapter:'Welcome',           mid:'How this experience works'},
+  {n:3, space:'s1', chapter:'Chapter 1',         mid:'The chaos of Monday'},
+  {n:4, space:'s2', chapter:'Chapter 2',         mid:'Order begins to form'},
+  {n:5, space:'s2', chapter:'Chapter 3',         mid:'The cathedral rises'},
+  {n:6, space:'s2', chapter:'Chapter 4',         mid:'What a Sprint is'},
+  {n:7, space:'s2', chapter:'Chapter 4b',        mid:'Why one Sprint Goal'},
+  {n:8, space:'s2', chapter:'Chapter 5',         mid:'Sprint 1 begins'},
+  {n:9, space:'s2', chapter:'Chapter 6',         mid:'Three questions, ten minutes'},
+  {n:10,space:'s3', chapter:'Chapter 7',         mid:'The roles emerge'},
+  {n:11,space:'s4', chapter:'Chapter 8',         mid:'One column is missing'},
+  {n:12,space:'s4', chapter:'Chapter 9',         mid:'Broken made beautiful'},
+  {n:13,space:'s4', chapter:'Chapter 10',        mid:'A shared standard'},
+  {n:14,space:'s5', chapter:'Chapter 11',        mid:'The rooftop · reflection'},
+  {n:15,space:'s5', chapter:'Chapter 12',        mid:'Your first Sprint, carved'},
 ];
 
 const SPACES = {
@@ -1059,19 +1155,20 @@ const state = {
   busy: false,
   gates: {
     1:true,                       // title — always pass
-    2:false,                      // catch a card
-    3:false,                      // Q1 answered
-    4:false,                      // tap a column
-    5:true,                       // sprint intro — read
-    6:false,                      // sprint quiz answered
-    7:false,                      // decision Q2 answered
-    8:false,                      // daily scrum Q3 answered
-    9:false,                      // roles drag-drop complete
-    10:false,                     // crisis quiz answered
-    11:true,                      // kintsugi — read
-    12:false,                     // DoD quiz answered
-    13:false,                     // mirador — auto unlocks
-    14:true,                      // commitment stone — final
+    2:true,                       // intro — read
+    3:false,                      // catch a card
+    4:false,                      // Q1 answered
+    5:false,                      // tap a column
+    6:true,                       // sprint intro — read
+    7:false,                      // sprint quiz answered
+    8:false,                      // decision Q2 answered
+    9:false,                      // daily scrum Q3 answered
+    10:false,                     // roles drag-drop complete
+    11:false,                     // crisis quiz answered
+    12:true,                      // kintsugi — read
+    13:false,                     // DoD quiz answered
+    14:false,                     // mirador — auto unlocks
+    15:true,                      // commitment stone — final
   },
   visited: new Set([1]),
   q1Done:false, qSprintDone:false, q2Done:false, q3Done:false,
@@ -1200,24 +1297,24 @@ function render(){
 // ═══════════════════════════════════════════════════════════════
 
 function buildScreen(n){
-  if(n===2 && !state.s2_built) buildChaosCards();
-  if(n===3 && !state.s3_built) buildBacklog();
-  if(n===4 && !state.s4_built) buildFourCols();
-  if(n===6) setupQuiz('quiz-6', 'qf-sprint', QUIZZES.qSprint, ()=>{state.qSprintDone=true; unlock(6);});
-  if(n===7 && !state.s7_built) buildSprint1();
-  if(n===8 && !state.s8_built) buildDailyScrum();
-  if(n===9 && !state.s9_built) buildRoles();
-  if(n===10) setupCrisis();
-  if(n===11 && !state.s11_built) buildChallenges();
-  if(n===12 && !state.s12_built) buildDoD();
-  if(n===13 && !state.s13_built) buildMirador();
-  if(n===14) setupCommitmentStone();
+  if(n===3 && !state.s2_built) buildChaosCards();
+  if(n===4 && !state.s3_built) buildBacklog();
+  if(n===5 && !state.s4_built) buildFourCols();
+  if(n===7) setupQuiz('quiz-6', 'qf-sprint', QUIZZES.qSprint, ()=>{state.qSprintDone=true; unlock(7);});
+  if(n===8 && !state.s7_built) buildSprint1();
+  if(n===9 && !state.s8_built) buildDailyScrum();
+  if(n===10 && !state.s9_built) buildRoles();
+  if(n===11) setupCrisis();
+  if(n===12 && !state.s11_built) buildChallenges();
+  if(n===13 && !state.s12_built) buildDoD();
+  if(n===14 && !state.s13_built) buildMirador();
+  if(n===15) setupCommitmentStone();
 }
 
 // ─── SCREEN 2: CHAOS CARDS ─────────────────────────────────────
 function buildChaosCards(){
   state.s2_built = true;
-  const screen = document.getElementById('screen-2');
+  const screen = document.getElementById('screen-3');
   CHAOS_CARDS.forEach(c=>{
     const el = document.createElement('div');
     el.className='cc';
@@ -1228,8 +1325,8 @@ function buildChaosCards(){
       if(state.busy) return;
       el.classList.add('caught');
       state.busy = true;
-      unlock(2);
-      setTimeout(()=>{ state.busy=false; goTo(3); }, 900);
+      unlock(3);
+      setTimeout(()=>{ state.busy=false; goTo(4); }, 900);
     };
     screen.appendChild(el);
   });
@@ -1249,7 +1346,7 @@ function buildBacklog(){
   setTimeout(()=>{
     document.getElementById('quiz-1').classList.add('on');
     document.getElementById('quiz-1').classList.remove('locked');
-    setupQuiz('quiz-1', 'qf-1', QUIZZES.q1, ()=>{state.q1Done=true; unlock(3);});
+    setupQuiz('quiz-1', 'qf-1', QUIZZES.q1, ()=>{state.q1Done=true; unlock(4);});
   }, BACKLOG_ITEMS.length*120 + 700);
 }
 
@@ -1267,7 +1364,7 @@ function buildFourCols(){
       const dp = document.getElementById('colDef');
       dp.innerHTML = `<b>${co.name.toUpperCase()} · ${co.sub}</b>${co.def}`;
       dp.classList.add('on');
-      unlock(4);
+      unlock(5);
     };
     c.appendChild(el);
   });
@@ -1291,7 +1388,7 @@ function buildSprint1(){
     const qz = document.getElementById('quiz-2');
     qz.classList.add('on');
     qz.classList.remove('locked');
-    setupQuiz('quiz-2', 'qf-2', QUIZZES.q2, ()=>{state.q2Done=true; unlock(7);});
+    setupQuiz('quiz-2', 'qf-2', QUIZZES.q2, ()=>{state.q2Done=true; unlock(8);});
   }, SPRINT_TASKS.length*120 + 700);
 }
 
@@ -1324,7 +1421,7 @@ function buildDailyScrum(){
     qz.classList.remove('locked');
     setupQuiz('quiz-3', 'qf-3', QUIZZES.q3, ()=>{
       state.q3Done = true;
-      unlock(8);
+      unlock(9);
       setTimeout(()=>document.getElementById('dailyHook').classList.add('on'), 800);
     });
   }, 2400);
@@ -1334,7 +1431,7 @@ function buildDailyScrum(){
 let _drag = null;
 function buildRoles(){
   state.s9_built = true;
-  document.querySelectorAll('#screen-9 .char').forEach(ch=>{
+  document.querySelectorAll('#screen-10 .char').forEach(ch=>{
     ch.addEventListener('pointerdown', e => onDragStart(e, ch));
     ch.addEventListener('pointermove', e => onDragMove(e, ch));
     ch.addEventListener('pointerup',   e => onDragEnd(e, ch));
@@ -1358,7 +1455,7 @@ function onDragMove(e, ch){
   ch.style.pointerEvents = 'none';
   const below = document.elementFromPoint(e.clientX, e.clientY);
   ch.style.pointerEvents = '';
-  document.querySelectorAll('#screen-9 .role').forEach(r=>{
+  document.querySelectorAll('#screen-10 .role').forEach(r=>{
     const over = r === below || r.contains(below);
     r.classList.toggle('hover', over && !r.classList.contains('correct'));
   });
@@ -1369,7 +1466,7 @@ function onDragEnd(e, ch){
   const below = document.elementFromPoint(e.clientX, e.clientY);
   ch.style.pointerEvents = '';
   let target = null;
-  document.querySelectorAll('#screen-9 .role').forEach(r=>{
+  document.querySelectorAll('#screen-10 .role').forEach(r=>{
     r.classList.remove('hover');
     if(!target && !r.classList.contains('correct') && (r === below || r.contains(below))) target = r;
   });
@@ -1404,7 +1501,7 @@ function handleRoleDrop(ch, role){
       const md = document.getElementById('mosaicDone');
       md.innerHTML = '<span>✦</span>  Mosaic complete · the team is whole  <span>✦</span>';
       md.classList.add('on');
-      unlock(9);
+      unlock(10);
     }
   } else {
     role.classList.add('wrong');
@@ -1440,7 +1537,7 @@ function setupCrisis(){
         document.getElementById('healLayer').style.opacity='1';
         setTimeout(()=>document.getElementById('crack1').setAttribute('stroke','rgba(255,90,40,.1)'), 600);
       }
-      unlock(10);
+      unlock(11);
     };
   });
 }
@@ -1506,7 +1603,7 @@ function buildDoD(){
         const qz = document.getElementById('quiz-4');
         qz.classList.add('on');
         qz.classList.remove('locked');
-        setupQuiz('quiz-4', 'qf-4', QUIZZES.q4, ()=>{state.q4Done=true; unlock(12);});
+        setupQuiz('quiz-4', 'qf-4', QUIZZES.q4, ()=>{state.q4Done=true; unlock(13);});
       }
     };
     grid.appendChild(b);
@@ -1531,7 +1628,7 @@ function buildMirador(){
   });
   setTimeout(()=>{
     document.getElementById('carveBtnNext').classList.add('reveal');
-    unlock(13);
+    unlock(14);
   }, 4000);
 }
 
@@ -1625,7 +1722,7 @@ document.querySelectorAll('[data-next]').forEach(b=>{
   b.addEventListener('click', e=>{
     e.preventDefault();
     e.stopPropagation();
-    if(state.current === 13 && !state.gates[13]) return; // wait for stars
+    if(state.current === 14 && !state.gates[14]) return; // wait for stars
     goTo(state.current+1);
   });
 });
